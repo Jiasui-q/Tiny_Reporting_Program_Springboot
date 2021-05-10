@@ -79,8 +79,8 @@ public class FileGenerator {
      * @throws IOException
      */
     private void writeTitle(BufferedWriter out) throws IOException {
-        out.write("id（随机的10位字符串，不能重复, name（中文，可以重复2-4位, sex（随机男、女, " +
-                "age（随机0-100，随机排列, desc(随机20个字符), bizDate（以当前时间与age日期对应, nation（民族, " +
+        out.write("id(随机的10位字符串，不能重复), name(中文，可以重复2-4位, sex（随机男、女), " +
+                "age(随机0-100，随机排列), desc(随机20个字符), bizDate(以当前时间与age日期对应), nation（民族), " +
                 "phone(随机 符合电话要求), email(符合常用的电子邮件@qq)，hobbies(爱好，| 隔开)\r\n");
     }
 

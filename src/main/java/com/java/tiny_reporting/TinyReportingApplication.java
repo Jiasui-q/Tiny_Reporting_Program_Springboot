@@ -18,7 +18,7 @@ public class TinyReportingApplication {
 		// Generate txt files
 		String file_path = "src/data/original/2021-05-08_test1kw.txt";
 		FileGenerator fg = new FileGenerator();
-		fg.createAll(file_path,1000);
+		fg.createAll(file_path,100);
 		fg.createEach(file_path,10);
 
 		// Generate log files
@@ -33,6 +33,7 @@ public class TinyReportingApplication {
 		String data_path = "src/data/original";
 		ZipGenerator zipUtils = new ZipGenerator();
 		zipUtils.serialZip(data_path);
+		zipUtils.parallelZip(data_path);
 	}
 
 }

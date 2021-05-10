@@ -44,6 +44,8 @@ public class LogGenerator {
 
     /**
      * 获取并返回文件创建时间
+     * @param file_path
+     * @return Date
      */
     public Date getCreateTimeDate(String file_path){
         Date createTimeDate = null;
@@ -63,6 +65,8 @@ public class LogGenerator {
 
     /**
      * 获取并返回文件大小
+     * @param file_path
+     * @return long
      */
     public long getFileSize(String file_path) {
         File file = new File(file_path);
@@ -71,7 +75,9 @@ public class LogGenerator {
 
     /**
      * 获取并返回文件行数
+     * @param file_path
      * @throws IOException
+     * @return long
      */
     public long getLineNum(String file_path) throws IOException {
         long lineNum = Files.lines(Paths.get(file_path)).count();
@@ -80,14 +86,17 @@ public class LogGenerator {
 
     /**
      * 返回文件中男人总数
+     * @param file_path
      * @throws IOException
+     * @return int
      */
     public int getMenNum(String file_path) throws IOException {
         Path filePath = Paths.get(file_path);
         Stream<String> lines = Files.lines(filePath);
-        long menNum = lines.filter(s -> s.split(", ")[3].equals("男")).count();
-        //lines.filter(s -> s.split(", ")[0].equals("0")).forEach(System.out::println);
-        //lines.map(s -> s.split(", ").toString()).forEach(System.out::println);
+        long menNum = lines.skip(1).filter(s -> s.split(", ")[3].equals("男")).count();
+        return (int)menNum;
+
+//        //使用reader一行行读
 //        FileReader read = new FileReader(file_path);
 //        BufferedReader br = new BufferedReader(read);
 //        br.readLine();
@@ -99,15 +108,22 @@ public class LogGenerator {
 //                menNum++;
 //            }
 //        }
-//        System.out.println(menNum);
-        return (int)menNum;
+//        return menNum;
     }
 
     /**
      * 返回文件中年龄是4的倍数的总和
+     * @param file_path
      * @throws IOException
+     * @return int
      */
     public int getAge4Num(String file_path) throws IOException {
+        Path filePath = Paths.get(file_path);
+        Stream<String> lines = Files.lines(filePath);
+        long age4Num = lines.skip(1).filter(s -> Integer.valueOf(s.split(", ")[4])%4==0).count();
+        return (int)age4Num;
+
+//        // 使用reader
 //        FileReader read = new FileReader(file_path);
 //        BufferedReader br = new BufferedReader(read);
 //        br.readLine();
@@ -119,16 +135,13 @@ public class LogGenerator {
 //                age4Num++;
 //            }
 //        }
+//        System.out.println(age4Num);
 //        return age4Num;
-
-        Path filePath = Paths.get(file_path);
-        Stream<String> lines = Files.lines(filePath);
-        lines.filter(s -> Integer.valueOf(s.split(", ")[4])%4==0).forEach(System.out::println);
-        return 0;
     }
 
     /**
      * 获取并返回此文件所有信息
+     * @param file_path
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
@@ -147,14 +160,11 @@ public class LogGenerator {
     }
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-//        for(int i = 1; i <= 10; i++){
-//            String file_path = "src/data/original/2021-05-08_test1kw_" + i + ".txt";
-//            LogGenerator lg = new LogGenerator();
-//            lg.generateLogFile(file_path);
-//        }
-        String file_path = "src/data/original/2021-05-08_test1kw_1.txt";
-        LogGenerator lg = new LogGenerator();
-        lg.getMenNum(file_path);
+        for(int i = 1; i <= 10; i++){
+            String file_path = "src/data/original/2021-05-08_test1kw_" + i + ".txt";
+            LogGenerator lg = new LogGenerator();
+            lg.generateLogFile(file_path);
+        }
     }
 }
 

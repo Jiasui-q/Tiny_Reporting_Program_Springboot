@@ -50,6 +50,10 @@ public class ZipGenerator {
         System.out.println("并行压缩完成，耗时：" + (end - start) + " ms");
     }
 
+    /**
+     * 并行的将文件打包并计算耗时
+     * @param data_path 需要打包的文件所在的data包路径
+     */
     public void parallelZip(String data_path){
         long start = System.currentTimeMillis();
         ExecutorService es = Executors.newFixedThreadPool(5);
@@ -57,7 +61,6 @@ public class ZipGenerator {
         File[] files = file.listFiles();
         for (File f : files) {
             Runnable task = ()->{
-                System.out.println(Thread.currentThread().getName()+"创建一个新线程");
                 try {
                     zipHelp(f);
                 } catch (IOException e) {
@@ -74,6 +77,6 @@ public class ZipGenerator {
         String data_path = "src/data/original";
         ZipGenerator zipUtils = new ZipGenerator();
         zipUtils.serialZip(data_path);
-        //zipUtils.parallelZip(data_path);
+        zipUtils.parallelZip(data_path);
     }
 }
