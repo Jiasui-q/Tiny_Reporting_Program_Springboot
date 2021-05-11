@@ -1,4 +1,4 @@
-package model;
+package com.java.tiny_reporting.model;
 
 import java.util.HashSet;
 import java.util.Set;
