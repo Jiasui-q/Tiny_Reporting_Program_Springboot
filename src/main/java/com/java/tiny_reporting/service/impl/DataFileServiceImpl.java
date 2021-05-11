@@ -4,6 +4,8 @@
  */
 package com.java.tiny_reporting.service.impl;
 
+import java.io.IOException;
+
 import com.java.tiny_reporting.service.DataFileService;
 import com.java.tiny_reporting.utils.FileGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
@@ -22,6 +24,7 @@ public class DataFileServiceImpl implements DataFileService {
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(DataFileService.class);
+    private final String PATH = "XXX/XXXX";
 
     /**
      * 准备一个文件
@@ -33,8 +36,15 @@ public class DataFileServiceImpl implements DataFileService {
 
         try {
             // 1. 模拟生成数据文件
-            FileGenerator.createAll("", totalCount);
-        } catch (Exception e) {
+            FileGenerator.createAll(PATH, totalCount);
+
+            // 2. 拆分文件 并生成log
+            //XXXXX
+
+
+        } catch (IOException ioe) {
+            // XXXXXX
+        } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}", totalCount);
         }
 

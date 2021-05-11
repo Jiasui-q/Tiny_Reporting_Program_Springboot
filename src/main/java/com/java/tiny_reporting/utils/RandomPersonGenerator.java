@@ -1,5 +1,8 @@
 package com.java.tiny_reporting.utils;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.java.tiny_reporting.model.Person;
 
 import java.util.*;
@@ -17,10 +20,9 @@ public class RandomPersonGenerator {
         newPerson.setId(setRandomId());
         newPerson.setName(setRandomName());
         newPerson.setSex(setRandomSex());
-        int newAge = setRandomAge();
-        newPerson.setAge(newAge);
+        newPerson.setAge(setRandomAge());
         newPerson.setDesc(setRandomDesc());
-        newPerson.setBizDate(setRandomBizDate(newAge));
+        newPerson.setBizDate(setRandomBizDate(newPerson.getAge()));
         newPerson.setNation(setRandomNation());
         newPerson.setPhone(setRandomPhone());
         newPerson.setEmail(setRandomEmail());
@@ -33,8 +35,8 @@ public class RandomPersonGenerator {
      * @param personNum 指定生成人数
      * @return List<Person>
      */
-    public static List<Person> createListRandomPerson(int personNum){
-        List<Person> listRandomPerson = new ArrayList<>();
+    public static List<Person> createRandomPersonList(int personNum){
+        List<Person> listRandomPerson = Lists.newArrayList();
         for(int i = 0; i < personNum; i++){
             listRandomPerson.add(createSingleRandomPerson());
         }
