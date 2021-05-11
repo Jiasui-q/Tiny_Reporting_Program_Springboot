@@ -1,28 +1,31 @@
 package com.java.tiny_reporting.utils;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
 import com.java.tiny_reporting.model.Person;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.*;
-
 @Component
-@ConfigurationProperties(prefix = "random-person-info")
 public class RandomPersonGenerator {
-    private static List<String> surname;
-    private static List<String> nation;
-    private static List<String> hobbies;
+
+    /**
+     * 系统参数config
+     */
+    private static SystemPropertiesConfig systemPropertiesConfig;
+
     private static Random random = new Random();
 
-    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
     /**
      * 生成单个person以及它的随机信息
      *
      * @return Person
      */
-    public static Person createSingleRandomPerson(){
+    public static Person createSingleRandomPerson() {
         Person newPerson = new Person();
         newPerson.setId(setRandomId());
         newPerson.setName(setRandomName());
@@ -36,6 +39,7 @@ public class RandomPersonGenerator {
         newPerson.setHobbies(setRandomHobbies());
         return newPerson;
     }
+    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
 
     /**
      * 生成一组随机person
@@ -43,37 +47,38 @@ public class RandomPersonGenerator {
      * @param personNum 指定生成人数
      * @return List<Person>
      */
-    public static List<Person> createRandomPersonList(int personNum){
+    public static List<Person> createRandomPersonList(int personNum) {
         List<Person> listRandomPerson = Lists.newArrayList();
-        for (int i = 0; i < personNum; i++){
+        for (int i = 0; i < personNum; i++) {
             listRandomPerson.add(createSingleRandomPerson());
         }
         return listRandomPerson;
     }
 
-    // ～～～～～～～～～～～～～～～～～私有方法～～～～～～～～～～～～～～～～～～～～
     /**
      * 随机生成10个字符的Id
      *
      * @return String
      */
-    private static String setRandomId(){
+    private static String setRandomId() {
         return getRandomString(10, true);
     }
+
+    // ～～～～～～～～～～～～～～～～～私有方法～～～～～～～～～～～～～～～～～～～～
 
     /**
      * 随机生成姓名，可以重复2-4位
      *
      * @return String
      */
-    private static String setRandomName(){
+    private static String setRandomName() {
         StringBuffer sb = new StringBuffer();
-        int nameLength = random.nextInt(3)+1;
-        for (int i = 0; i < nameLength; i++){
+        int nameLength = random.nextInt(3) + 1;
+        for (int i = 0; i < nameLength; i++) {
             int delta = 0x9fa5 - 0x4e00 + 1;
-            sb.append((char)(0x4e00 + random.nextInt(delta)));
+            sb.append((char) (0x4e00 + random.nextInt(delta)));
         }
-        return surname.get(random.nextInt(surname.size()))+sb.toString();
+        return systemPropertiesConfig.getSurname().get(random.nextInt(systemPropertiesConfig.getSurname().size())) + sb.toString();
     }
 
     /**
@@ -81,11 +86,11 @@ public class RandomPersonGenerator {
      *
      * @return String
      */
-    private static String setRandomSex(){
+    private static String setRandomSex() {
         int s_num = random.nextInt(2);
-        if (s_num==0){
+        if (s_num == 0) {
             return "男";
-        }else{
+        } else {
             return "女";
         }
     }
@@ -95,7 +100,7 @@ public class RandomPersonGenerator {
      *
      * @return int
      */
-    private static int setRandomAge(){
+    private static int setRandomAge() {
         return random.nextInt(101);
     }
 
@@ -104,7 +109,7 @@ public class RandomPersonGenerator {
      *
      * @return String
      */
-    private static String setRandomDesc(){
+    private static String setRandomDesc() {
         return getRandomString(20, true);
     }
 
@@ -114,19 +119,19 @@ public class RandomPersonGenerator {
      * @return String
      */
     private static String setRandomBizDate(int randomAge) {
-        int month = random.nextInt(12)+1;
-        int day = random.nextInt(30)+1;
-        int year = 2021-randomAge;
-        if ((month>5) || (month==5 && day>=7)){
+        int month = random.nextInt(12) + 1;
+        int day = random.nextInt(30) + 1;
+        int year = 2021 - randomAge;
+        if ((month > 5) || (month == 5 && day >= 7)) {
             year -= 1;
         }
         String date = String.valueOf(year);
-        if (month<10){
-            date+="0";
+        if (month < 10) {
+            date += "0";
         }
         date += String.valueOf(month);
-        if (day<10){
-            date+="0";
+        if (day < 10) {
+            date += "0";
         }
         date += String.valueOf(day);
         return date;
@@ -137,8 +142,8 @@ public class RandomPersonGenerator {
      *
      * @return String
      */
-    private static  String setRandomNation() {
-        return nation.get(random.nextInt(nation.size()));
+    private static String setRandomNation() {
+        return systemPropertiesConfig.getNation().get(random.nextInt(systemPropertiesConfig.getNation().size()));
     }
 
     /**
@@ -156,7 +161,7 @@ public class RandomPersonGenerator {
      * @return String
      */
     private static String setRandomEmail() {
-        return getRandomString(10, false)+"@qq.com";
+        return getRandomString(10, false) + "@qq.com";
     }
 
     /**
@@ -166,9 +171,9 @@ public class RandomPersonGenerator {
      */
     private static Set<String> setRandomHobbies() {
         Set<String> hobbyChosen = new HashSet<>();
-        for (int i = 0; i < 3; i ++){
-            String choice = hobbies.get(random.nextInt(hobbies.size()));
-            if (!hobbyChosen.contains(choice)){
+        for (int i = 0; i < 3; i++) {
+            String choice = systemPropertiesConfig.getHobbies().get(random.nextInt(systemPropertiesConfig.getHobbies().size()));
+            if (!hobbyChosen.contains(choice)) {
                 hobbyChosen.add(choice);
             }
         }
@@ -197,8 +202,10 @@ public class RandomPersonGenerator {
         return sb.toString();
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(nation.size());
+    @Autowired
+    public void init(SystemPropertiesConfig systemPropertiesConfig) {
+        RandomPersonGenerator.systemPropertiesConfig = systemPropertiesConfig;
     }
+
 }
 
