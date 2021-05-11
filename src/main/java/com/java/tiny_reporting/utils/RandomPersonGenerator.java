@@ -1,6 +1,9 @@
-package utils;
+package com.java.tiny_reporting.utils;
 
-import model.Person;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.java.tiny_reporting.model.Person;
 
 import java.util.*;
 
@@ -12,15 +15,14 @@ public class RandomPersonGenerator {
      * 生成单个person以及它的随机信息
      * @return Person
      */
-    public Person createSingleRandomPerson(){
+    public static Person createSingleRandomPerson(){
         Person newPerson = new Person();
         newPerson.setId(setRandomId());
         newPerson.setName(setRandomName());
         newPerson.setSex(setRandomSex());
-        int newAge = setRandomAge();
-        newPerson.setAge(newAge);
+        newPerson.setAge(setRandomAge());
         newPerson.setDesc(setRandomDesc());
-        newPerson.setBizDate(setRandomBizDate(newAge));
+        newPerson.setBizDate(setRandomBizDate(newPerson.getAge()));
         newPerson.setNation(setRandomNation());
         newPerson.setPhone(setRandomPhone());
         newPerson.setEmail(setRandomEmail());
@@ -33,8 +35,8 @@ public class RandomPersonGenerator {
      * @param personNum 指定生成人数
      * @return List<Person>
      */
-    public List<Person> createListRandomPerson(int personNum){
-        List<Person> listRandomPerson = new ArrayList<>();
+    public static List<Person> createRandomPersonList(int personNum){
+        List<Person> listRandomPerson = Lists.newArrayList();
         for(int i = 0; i < personNum; i++){
             listRandomPerson.add(createSingleRandomPerson());
         }
@@ -46,7 +48,7 @@ public class RandomPersonGenerator {
      * 随机生成10个字符的Id
      * @return String
      */
-    private String setRandomId(){
+    private static String setRandomId(){
         return getRandomString(10, true);
     }
 
@@ -54,7 +56,7 @@ public class RandomPersonGenerator {
      * 随机生成姓名，可以重复2-4位
      * @return String
      */
-    private String setRandomName(){
+    private static String setRandomName(){
         StringBuffer sb = new StringBuffer();
         String surName[] = {
                 "赵","钱","孙","李","周","吴","郑","王","冯","陈","楮","卫","蒋","沈","韩","杨",
@@ -97,7 +99,7 @@ public class RandomPersonGenerator {
      * 随机生成性别，男/女
      * @return String
      */
-    private String setRandomSex(){
+    private static String setRandomSex(){
         int s_num = random.nextInt(2);
         if (s_num==0){
             return "男";
@@ -110,7 +112,7 @@ public class RandomPersonGenerator {
      * 随机生成年龄，0-100之间
      * @return int
      */
-    private int setRandomAge(){
+    private static int setRandomAge(){
         return random.nextInt(101);
     }
 
@@ -118,7 +120,7 @@ public class RandomPersonGenerator {
      * 随机生成20个字符的desc
      * @return String
      */
-    private String setRandomDesc(){
+    private static String setRandomDesc(){
         return getRandomString(20, true);
     }
 
@@ -126,7 +128,7 @@ public class RandomPersonGenerator {
      * 根据年龄随机生成生日
      * @return String
      */
-    private String setRandomBizDate(int randomAge) {
+    private static String setRandomBizDate(int randomAge) {
         int month = random.nextInt(12)+1;
         int day = random.nextInt(30)+1;
         int year = 2021-randomAge;
@@ -149,7 +151,7 @@ public class RandomPersonGenerator {
      * 随机生成民族
      * @return String
      */
-    private String setRandomNation() {
+    private static  String setRandomNation() {
         String[] allNations = new String[]{"汉族", "蒙古族", "回族", "藏族", "苗族", "维吾尔族", "彝族",
                 "壮族", "布依族", "白族", "朝鲜族", "侗族", "哈尼族", "哈萨克族", "满族", "土家族", "瑶族",
                 "达斡尔族", "东乡族", "高山族", "景颇族", "柯尔克孜族", "拉祜族", "纳西族", "畲族", "傣族黎族",
@@ -163,7 +165,7 @@ public class RandomPersonGenerator {
      * 随机生成手机号，以1开头的11位数字
      * @return String
      */
-    private String setRandomPhone() {
+    private static String setRandomPhone() {
         return "1" + getRandomString(10, false);
     }
 
@@ -171,7 +173,7 @@ public class RandomPersonGenerator {
      * 随机生成10位的qq邮箱号
      * @return String
      */
-    private String setRandomEmail() {
+    private static String setRandomEmail() {
         return getRandomString(10, false)+"@qq.com";
     }
 
@@ -179,7 +181,7 @@ public class RandomPersonGenerator {
      * 随机生成一组兴趣爱好
      * @return Set<String>
      */
-    private Set<String> setRandomHobbies() {
+    private static Set<String> setRandomHobbies() {
         Set<String> hobbies = new HashSet<>();
         String[] allHobbies = new String[]{"电影","旅游","唱歌","烘焙","绘画","烹饪","摄影","看书","麻将"};
         for(int i = 0; i < 3; i ++){
@@ -197,7 +199,7 @@ public class RandomPersonGenerator {
      * @param hasChar：含字符为true，只有数字为false
      * @return String
      */
-    private String getRandomString(int length, boolean hasChar) {
+    private static String getRandomString(int length, boolean hasChar) {
         String base = "";
         if (hasChar) {
             base = "abcdefghijklmnopqrstuvwxyz0123456789";

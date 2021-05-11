@@ -1,10 +1,9 @@
 package com.java.tiny_reporting;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import utils.FileGenerator;
-import utils.LogGenerator;
-import utils.ZipGenerator;
+import com.java.tiny_reporting.utils.FileGenerator;
+import com.java.tiny_reporting.utils.LogGenerator;
+import com.java.tiny_reporting.utils.ZipGenerator;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

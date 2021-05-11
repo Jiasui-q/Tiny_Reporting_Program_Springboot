@@ -1,21 +1,35 @@
-package utils;
+package com.java.tiny_reporting.utils;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ZipGenerator {
+    public static void main(String[] args) throws IOException {
+        String data_path = "src/data/original";
+        ZipGenerator zipUtils = new ZipGenerator();
+        zipUtils.serialZip(data_path);
+        zipUtils.parallelZip(data_path);
+    }
+
     /**
      * 将传入的文件打包成zip
+     *
      * @param file 需要打包的文件
      * @throws IOException
      */
     private void zipHelp(File file) throws IOException {
         //压缩文件名称
         String[] file_name = file.getName().split("\\.");
-        File zipFile = new File("src/data/zip_files/"+file_name[0]+"_"+file_name[1]+".zip");
+        File zipFile = new File("src/data/zip_files/" + file_name[0] + "_" + file_name[1] + ".zip");
         //输入文件流
         InputStream input = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream((input));
@@ -26,8 +40,9 @@ public class ZipGenerator {
         byte[] b = new byte[1024];
         while (true) {
             int len = bis.read(b);
-            if (len == -1)
+            if (len == -1) {
                 break;
+            }
             bos.write(b, 0, len);
         }
         bos.flush();
@@ -36,6 +51,7 @@ public class ZipGenerator {
 
     /**
      * 串行的将文件打包并计算耗时
+     *
      * @param data_path 需要打包的文件所在的data包路径
      * @throws IOException
      */
@@ -52,15 +68,16 @@ public class ZipGenerator {
 
     /**
      * 并行的将文件打包并计算耗时
+     *
      * @param data_path 需要打包的文件所在的data包路径
      */
-    public void parallelZip(String data_path){
+    public void parallelZip(String data_path) {
         long start = System.currentTimeMillis();
         ExecutorService es = Executors.newFixedThreadPool(5);
         File file = new File(data_path);
         File[] files = file.listFiles();
         for (File f : files) {
-            Runnable task = ()->{
+            Runnable task = () -> {
                 try {
                     zipHelp(f);
                 } catch (IOException e) {
@@ -71,12 +88,5 @@ public class ZipGenerator {
         }
         long end = System.currentTimeMillis();
         System.out.println("串行压缩完成，耗时：" + (end - start) + " ms");
-    }
-
-    public static void main(String[] args) throws IOException {
-        String data_path = "src/data/original";
-        ZipGenerator zipUtils = new ZipGenerator();
-        zipUtils.serialZip(data_path);
-        zipUtils.parallelZip(data_path);
     }
 }
