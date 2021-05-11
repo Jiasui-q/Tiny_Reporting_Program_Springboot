@@ -38,8 +38,8 @@ public class HomeController {
      * 准备文件哦
      */
     @RequestMapping("/prepareFile.json")
-    public void prepareFileData(){
+    public void prepareFileData(String fileName){
         // todo
-        dataFileService.prepareFileData(100);
+        dataFileService.prepareWholeFile(fileName,100);
     }
 }

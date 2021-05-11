@@ -1,35 +1,22 @@
 package com.java.tiny_reporting.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ZipGenerator {
-    public static void main(String[] args) throws IOException {
-        String data_path = "src/data/original";
-        ZipGenerator zipUtils = new ZipGenerator();
-        zipUtils.serialZip(data_path);
-        zipUtils.parallelZip(data_path);
-    }
-
     /**
      * 将传入的文件打包成zip
-     *
+     * 
      * @param file 需要打包的文件
      * @throws IOException
      */
-    private void zipHelp(File file) throws IOException {
+    private static void zipHelp(File file) throws IOException {
         //压缩文件名称
-        String[] file_name = file.getName().split("\\.");
-        File zipFile = new File("src/data/zip_files/" + file_name[0] + "_" + file_name[1] + ".zip");
+        String[] fileName = file.getName().split("\\.");
+        File zipFile = new File("src/data/zip_files/"+fileName[0]+"_"+fileName[1]+".zip");
         //输入文件流
         InputStream input = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream((input));
@@ -51,13 +38,13 @@ public class ZipGenerator {
 
     /**
      * 串行的将文件打包并计算耗时
-     *
-     * @param data_path 需要打包的文件所在的data包路径
+     * 
+     * @param dataPath 需要打包的文件所在的data包路径
      * @throws IOException
      */
-    public void serialZip(String data_path) throws IOException {
+    public static void serialZip(String dataPath) throws IOException {
         long start = System.currentTimeMillis();
-        File file = new File(data_path);
+        File file = new File(dataPath);
         File[] files = file.listFiles();
         for (File f : files) {
             zipHelp(f);
@@ -68,16 +55,16 @@ public class ZipGenerator {
 
     /**
      * 并行的将文件打包并计算耗时
-     *
-     * @param data_path 需要打包的文件所在的data包路径
+     * 
+     * @param dataPath 需要打包的文件所在的data包路径
      */
-    public void parallelZip(String data_path) {
+    public static void parallelZip(String dataPath){
         long start = System.currentTimeMillis();
         ExecutorService es = Executors.newFixedThreadPool(5);
-        File file = new File(data_path);
+        File file = new File(dataPath);
         File[] files = file.listFiles();
         for (File f : files) {
-            Runnable task = () -> {
+            Runnable task = ()->{
                 try {
                     zipHelp(f);
                 } catch (IOException e) {

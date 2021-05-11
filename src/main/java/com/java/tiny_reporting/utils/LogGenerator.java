@@ -18,34 +18,24 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 public class LogGenerator {
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        for (int i = 1; i <= 10; i++) {
-            String file_path = "src/data/original/2021-05-08_test1kw_" + i + ".txt";
-            LogGenerator lg = new LogGenerator();
-            lg.generateLogFile(file_path);
-        }
-    }
-
     /**
      * 获取并返回文件的md5
      *
-     * @param file_path
+     * @param filePath
      * @return String
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public String getMD5(String file_path) throws IOException, NoSuchAlgorithmException {
-        MessageDigest digest = null;
-        FileInputStream in = null;
-        byte buffer[] = new byte[1024];
-        int len;
-        digest = MessageDigest.getInstance("MD5");
-        File file = new File(file_path);
+    public static String getMD5(String filePath) throws IOException, NoSuchAlgorithmException {
+        File file = new File(filePath);
         if (!file.exists() || !file.isFile()) {
             System.out.println("文件不存在");
             return "None";
         }
-        in = new FileInputStream(file);
+        byte buffer[] = new byte[1024];
+        int len;
+        MessageDigest digest = MessageDigest.getInstance("MD5");
+        FileInputStream in = new FileInputStream(file);
         while ((len = in.read(buffer, 0, 1024)) != -1) {
             digest.update(buffer, 0, len);
         }
@@ -57,17 +47,17 @@ public class LogGenerator {
     /**
      * 获取并返回文件创建时间
      *
-     * @param file_path
+     * @param filePath
      * @return Date
      */
-    public Date getCreateTimeDate(String file_path) {
+    public static Date getCreateTimeDate(String filePath) {
         Date createTimeDate = null;
-        Path path = Paths.get(file_path);
-        BasicFileAttributeView basicview = Files.getFileAttributeView(path, BasicFileAttributeView.class,
+        Path path = Paths.get(filePath);
+        BasicFileAttributeView basicView = Files.getFileAttributeView(path, BasicFileAttributeView.class,
                 LinkOption.NOFOLLOW_LINKS);
         BasicFileAttributes attr;
         try {
-            attr = basicview.readAttributes();
+            attr = basicView.readAttributes();
             createTimeDate = new Date(attr.creationTime().toMillis());
             return createTimeDate;
         } catch (Exception e) {
@@ -79,107 +69,88 @@ public class LogGenerator {
     /**
      * 获取并返回文件大小
      *
-     * @param file_path
+     * @param filePath
      * @return long
      */
-    public long getFileSize(String file_path) {
-        File file = new File(file_path);
+    public static long getFileSize(String filePath) {
+        File file = new File(filePath);
         return file.length();
     }
 
     /**
      * 获取并返回文件行数
      *
-     * @param file_path
+     * @param filePath
      * @return long
      * @throws IOException
      */
-    public long getLineNum(String file_path) throws IOException {
-        long lineNum = Files.lines(Paths.get(file_path)).count();
+    public static long getLineNum(String filePath) throws IOException {
+        long lineNum = Files.lines(Paths.get(filePath)).count();
         return lineNum;
     }
 
     /**
      * 返回文件中男人总数
      *
-     * @param file_path
+     * @param filePath
      * @return int
      * @throws IOException
      */
-    public int getMenNum(String file_path) throws IOException {
-        Path filePath = Paths.get(file_path);
-        Stream<String> lines = Files.lines(filePath);
-        long menNum = lines.skip(1).filter(s -> s.split(", ")[3].equals("男")).count();
+    public static int getMenNum(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        Stream<String> lines = Files.lines(path);
+        /**
+         * Step1 跳过第一行
+         * Step2 得到男性
+         * Step3 个数和
+         */
+        long menNum = lines.skip(1)
+                .filter(s -> s.split(", ")[3].equals("男"))
+                .count();
         return (int) menNum;
-
-        //        //使用reader一行行读
-        //        FileReader read = new FileReader(file_path);
-        //        BufferedReader br = new BufferedReader(read);
-        //        br.readLine();
-        //        String row;
-        //        int menNum = 0;
-        //        while ((row = br.readLine()) != null) {
-        //            String[] info = row.split(", ");
-        //            if (info[3].equals("男")) {
-        //                menNum++;
-        //            }
-        //        }
-        //        return menNum;
     }
 
     /**
      * 返回文件中年龄是4的倍数的总和
      *
-     * @param file_path
+     * @param filePath
      * @return int
      * @throws IOException
      */
-    public int getAge4Num(String file_path) throws IOException {
-        Path filePath = Paths.get(file_path);
-        Stream<String> lines = Files.lines(filePath);
+    public static int getAge4Num(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        Stream<String> lines = Files.lines(path);
         /**
          * Step1 跳过第一行
-         * Step2 年龄4的倍数
+         * Step2 得到年龄的IntStream
+         * Step3 年龄4的倍数
+         * Step4 个数和
          */
         long age4Num = lines.skip(1)
-                .filter(s -> Integer.valueOf(s.split(", ")[4]) % 4 == 0)
+                .mapToInt(s -> Integer.valueOf(s.split(", ")[4]))
+                .filter(s -> s % 4 == 0)
                 .count();
         return (int) age4Num;
-
-        //        // 使用reader
-        //        FileReader read = new FileReader(file_path);
-        //        BufferedReader br = new BufferedReader(read);
-        //        br.readLine();
-        //        String row;
-        //        int age4Num = 0;
-        //        while ((row = br.readLine()) != null) {
-        //            String[] info = row.split(", ");
-        //            if (Integer.valueOf(info[4])%4==0) {
-        //                age4Num++;
-        //            }
-        //        }
-        //        System.out.println(age4Num);
-        //        return age4Num;
     }
 
     /**
      * 获取并返回此文件所有信息
      *
-     * @param file_path
+     * @param filePath
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public void generateLogFile(String file_path) throws IOException, NoSuchAlgorithmException {
-        File f = new File(file_path.split("\\.")[0] + ".log");
+    public static void generateLogFile(String filePath) throws IOException, NoSuchAlgorithmException {
+        File f = new File(filePath.split("\\.")[0] + ".log");
         f.createNewFile();
         BufferedWriter out = new BufferedWriter(new FileWriter(f));
-        out.write(file_path + "\r\n");
-        out.write(getMD5(file_path) + "\r\n");
-        out.write(getCreateTimeDate(file_path) + "\r\n");
-        out.write(getFileSize(file_path) + "\r\n");
-        out.write(getLineNum(file_path) + "\r\n");
-        out.write(getMenNum(file_path) + "\r\n");
-        out.write(getAge4Num(file_path) + "\r\n");
+        out.write(filePath + "\r\n");
+        out.write(getMD5(filePath) + "\r\n");
+        out.write(getCreateTimeDate(filePath) + "\r\n");
+        out.write(getFileSize(filePath) + "\r\n");
+        out.write(getLineNum(filePath) + "\r\n");
+        out.write(getMenNum(filePath) + "\r\n");
+        out.write(getAge4Num(filePath) + "\r\n");
         out.close();
     }
 }

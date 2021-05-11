@@ -1,5 +1,6 @@
 package com.java.tiny_reporting;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.java.tiny_reporting.utils.FileGenerator;
 import com.java.tiny_reporting.utils.LogGenerator;
@@ -12,27 +13,24 @@ import java.security.NoSuchAlgorithmException;
 public class TinyReportingApplication {
 
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-		//SpringApplication.run(TinyReportingApplication.class, args);
+		SpringApplication.run(TinyReportingApplication.class, args);
 
 		// Generate txt files
-		String file_path = "src/data/original/2021-05-08_test1kw.txt";
-		FileGenerator fg = new FileGenerator();
-		fg.createAll(file_path,100);
-		fg.createEach(file_path,10);
+		String filePath = "src/data/original/2021-05-08_test1kw.txt";
+		FileGenerator.createWholeFile(filePath,100);
+		FileGenerator.createSplitFile(filePath,10);
 
 		// Generate log files
-		String file_path_group = "";
+		String groupFilePath = "";
 		for(int i = 1; i <= 10; i++){
-			file_path_group = "src/data/original/2021-05-08_test1kw_" + i + ".txt";
-			LogGenerator lg = new LogGenerator();
-			lg.generateLogFile(file_path_group);
+			groupFilePath = "src/data/original/2021-05-08_test1kw_" + i + ".txt";
+			LogGenerator.generateLogFile(groupFilePath);
 		}
 
 		// Generate zip files
-		String data_path = "src/data/original";
-		ZipGenerator zipUtils = new ZipGenerator();
-		zipUtils.serialZip(data_path);
-		zipUtils.parallelZip(data_path);
+//		String dataPath = "src/data/original";
+//		ZipGenerator.serialZip(dataPath);
+		//zipUtils.parallelZip(data_path);
 	}
 
 }
