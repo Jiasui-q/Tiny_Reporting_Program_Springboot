@@ -41,7 +41,7 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public void prepareWholeFile(String fileName, Integer totalCount) {
         try {
-            FileGenerator.createWholeFile(PATH+fileName, totalCount);
+            FileGenerator.createWholeFile(PATH + fileName, totalCount);
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}", totalCount);
         }
@@ -56,7 +56,7 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public void prepareSplitFile(String fileName, Integer groupCount) {
         try {
-            FileGenerator.createSplitFile(PATH+fileName, groupCount);
+            FileGenerator.createSplitFile(PATH + fileName, groupCount);
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}", groupCount);
         }
@@ -70,7 +70,7 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public void prepareLogFile(String fileName){
         try {
-            LogGenerator.generateLogFile(PATH+fileName);
+            LogGenerator.generateLogFile(PATH + fileName);
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}");
         }

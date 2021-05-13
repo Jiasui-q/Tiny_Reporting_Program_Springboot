@@ -18,7 +18,17 @@ public class RandomPersonGenerator {
      */
     private static SystemPropertiesConfig systemPropertiesConfig;
 
+    /**
+     * Random对象，用于生成随机数
+     */
     private static Random random = new Random();
+
+    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
+
+    @Autowired
+    public void init(SystemPropertiesConfig systemPropertiesConfig) {
+        RandomPersonGenerator.systemPropertiesConfig = systemPropertiesConfig;
+    }
 
     /**
      * 生成单个person以及它的随机信息
@@ -39,21 +49,8 @@ public class RandomPersonGenerator {
         newPerson.setHobbies(setRandomHobbies());
         return newPerson;
     }
-    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
 
-    /**
-     * 生成一组随机person
-     *
-     * @param personNum 指定生成人数
-     * @return List<Person>
-     */
-    public static List<Person> createRandomPersonList(int personNum) {
-        List<Person> listRandomPerson = Lists.newArrayList();
-        for (int i = 0; i < personNum; i++) {
-            listRandomPerson.add(createSingleRandomPerson());
-        }
-        return listRandomPerson;
-    }
+    // ～～～～～～～～～～～～～～～～～私有方法～～～～～～～～～～～～～～～～～～～～
 
     /**
      * 随机生成10个字符的Id
@@ -64,8 +61,6 @@ public class RandomPersonGenerator {
         return getRandomString(10, true);
     }
 
-    // ～～～～～～～～～～～～～～～～～私有方法～～～～～～～～～～～～～～～～～～～～
-
     /**
      * 随机生成姓名，可以重复2-4位
      *
@@ -73,12 +68,12 @@ public class RandomPersonGenerator {
      */
     private static String setRandomName() {
         StringBuffer sb = new StringBuffer();
-        int nameLength = random.nextInt(3) + 1;
+        int nameLength = random.nextInt(2) + 1;
         for (int i = 0; i < nameLength; i++) {
             int delta = 0x9fa5 - 0x4e00 + 1;
             sb.append((char) (0x4e00 + random.nextInt(delta)));
         }
-        return systemPropertiesConfig.getSurname().get(random.nextInt(systemPropertiesConfig.getSurname().size())) + sb.toString();
+        return getRandomElement(systemPropertiesConfig.getSurnameList()) + sb.toString();
     }
 
     /**
@@ -143,7 +138,7 @@ public class RandomPersonGenerator {
      * @return String
      */
     private static String setRandomNation() {
-        return systemPropertiesConfig.getNation().get(random.nextInt(systemPropertiesConfig.getNation().size()));
+        return getRandomElement(systemPropertiesConfig.getNationList());
     }
 
     /**
@@ -172,7 +167,7 @@ public class RandomPersonGenerator {
     private static Set<String> setRandomHobbies() {
         Set<String> hobbyChosen = new HashSet<>();
         for (int i = 0; i < 3; i++) {
-            String choice = systemPropertiesConfig.getHobbies().get(random.nextInt(systemPropertiesConfig.getHobbies().size()));
+            String choice = getRandomElement(systemPropertiesConfig.getHobbiesList());
             if (!hobbyChosen.contains(choice)) {
                 hobbyChosen.add(choice);
             }
@@ -188,23 +183,22 @@ public class RandomPersonGenerator {
      * @return String
      */
     private static String getRandomString(int length, boolean hasChar) {
-        String base = "";
-        if (hasChar) {
-            base = "abcdefghijklmnopqrstuvwxyz0123456789";
-        } else {
-            base = "0123456789";
-        }
+        String base = hasChar ? "abcdefghijklmnopqrstuvwxyz0123456789" : "0123456789";
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
+            sb.append(base.charAt(random.nextInt(base.length())));
         }
         return sb.toString();
     }
 
-    @Autowired
-    public void init(SystemPropertiesConfig systemPropertiesConfig) {
-        RandomPersonGenerator.systemPropertiesConfig = systemPropertiesConfig;
+    /**
+     * 随机取除list中的一个字符串
+     *
+     * @param list
+     * @return String
+     */
+    private static String getRandomElement(List<String> list) {
+        return list.get(random.nextInt(list.size()));
     }
 
 }

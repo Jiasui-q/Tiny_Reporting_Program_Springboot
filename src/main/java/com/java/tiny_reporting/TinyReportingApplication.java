@@ -28,9 +28,9 @@ public class TinyReportingApplication {
 		}
 
 		// Generate zip files
-//		String dataPath = "src/data/original";
-//		ZipGenerator.serialZip(dataPath);
-		//zipUtils.parallelZip(data_path);
+		String dataPath = "src/data/original";
+		ZipGenerator.serialZip(dataPath);
+		//ZipGenerator.parallelZip(dataPath);
 	}
 
 }

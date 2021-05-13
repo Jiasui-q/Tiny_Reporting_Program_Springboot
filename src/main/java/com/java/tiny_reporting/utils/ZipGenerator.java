@@ -7,6 +7,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ZipGenerator {
+
     /**
      * 将传入的文件打包成zip
      * 
@@ -25,11 +26,8 @@ public class ZipGenerator {
         BufferedOutputStream bos = new BufferedOutputStream(zipOut);
         zipOut.putNextEntry(new ZipEntry(file.getName()));
         byte[] b = new byte[1024];
-        while (true) {
-            int len = bis.read(b);
-            if (len == -1) {
-                break;
-            }
+        int len;
+        while ((len = bis.read(b)) != -1) {
             bos.write(b, 0, len);
         }
         bos.flush();

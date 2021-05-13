@@ -1,10 +1,6 @@
 package com.java.tiny_reporting.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -18,6 +14,7 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 public class LogGenerator {
+
     /**
      * 获取并返回文件的md5
      *
@@ -27,21 +24,16 @@ public class LogGenerator {
      * @throws NoSuchAlgorithmException
      */
     public static String getMD5(String filePath) throws IOException, NoSuchAlgorithmException {
-        File file = new File(filePath);
-        if (!file.exists() || !file.isFile()) {
-            System.out.println("文件不存在");
-            return "None";
-        }
+        MessageDigest digest = MessageDigest.getInstance("MD5");
+        InputStream input = new FileInputStream(new File(filePath));
+        BufferedInputStream bis = new BufferedInputStream((input));
         byte buffer[] = new byte[1024];
         int len;
-        MessageDigest digest = MessageDigest.getInstance("MD5");
-        FileInputStream in = new FileInputStream(file);
-        while ((len = in.read(buffer, 0, 1024)) != -1) {
+        while ((len = bis.read(buffer)) != -1) {
             digest.update(buffer, 0, len);
         }
-        in.close();
-        BigInteger bigInt = new BigInteger(1, digest.digest());
-        return bigInt.toString(16);
+        input.close();
+        return new BigInteger(1, digest.digest()).toString(16);
     }
 
     /**
@@ -51,16 +43,15 @@ public class LogGenerator {
      * @return Date
      */
     public static Date getCreateTimeDate(String filePath) {
-        Date createTimeDate = null;
-        Path path = Paths.get(filePath);
-        BasicFileAttributeView basicView = Files.getFileAttributeView(path, BasicFileAttributeView.class,
-                LinkOption.NOFOLLOW_LINKS);
-        BasicFileAttributes attr;
         try {
-            attr = basicView.readAttributes();
-            createTimeDate = new Date(attr.creationTime().toMillis());
+            Path path = Paths.get(filePath);
+            BasicFileAttributeView basicView = Files.getFileAttributeView(path,
+                    BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
+            BasicFileAttributes attr = basicView.readAttributes();
+            Date createTimeDate = new Date(attr.creationTime().toMillis());
             return createTimeDate;
         } catch (Exception e) {
+            System.out.println("查询文件生成时间失败");
             e.printStackTrace();
             return null;
         }
@@ -73,8 +64,7 @@ public class LogGenerator {
      * @return long
      */
     public static long getFileSize(String filePath) {
-        File file = new File(filePath);
-        return file.length();
+        return new File(filePath).length();
     }
 
     /**
@@ -85,8 +75,7 @@ public class LogGenerator {
      * @throws IOException
      */
     public static long getLineNum(String filePath) throws IOException {
-        long lineNum = Files.lines(Paths.get(filePath)).count();
-        return lineNum;
+        return Files.lines(Paths.get(filePath)).count();
     }
 
     /**
@@ -97,8 +86,7 @@ public class LogGenerator {
      * @throws IOException
      */
     public static int getMenNum(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
-        Stream<String> lines = Files.lines(path);
+        Stream<String> lines = Files.lines(Paths.get(filePath));
         /**
          * Step1 跳过第一行
          * Step2 得到男性
@@ -118,8 +106,7 @@ public class LogGenerator {
      * @throws IOException
      */
     public static int getAge4Num(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
-        Stream<String> lines = Files.lines(path);
+        Stream<String> lines = Files.lines(Paths.get(filePath));
         /**
          * Step1 跳过第一行
          * Step2 得到年龄的IntStream
@@ -141,9 +128,9 @@ public class LogGenerator {
      * @throws NoSuchAlgorithmException
      */
     public static void generateLogFile(String filePath) throws IOException, NoSuchAlgorithmException {
-        File f = new File(filePath.split("\\.")[0] + ".log");
-        f.createNewFile();
-        BufferedWriter out = new BufferedWriter(new FileWriter(f));
+        File log_file = new File(filePath.split("\\.")[0] + ".log");
+        log_file.createNewFile();
+        BufferedWriter out = new BufferedWriter(new FileWriter(log_file));
         out.write(filePath + "\r\n");
         out.write(getMD5(filePath) + "\r\n");
         out.write(getCreateTimeDate(filePath) + "\r\n");
