@@ -1,11 +1,13 @@
+/**
+ * Alipay.com Inc.
+ * Copyright (c) 2004-2021 All Rights Reserved.
+ */
 package com.java.tiny_reporting.utils;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import com.google.common.collect.Lists;
 import com.java.tiny_reporting.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -8,12 +8,6 @@ import java.text.MessageFormat;
 
 import org.slf4j.Logger;
 
-/**
- * 日志工具
- *
- * @author jinyu.qjy
- * @version $Id: LogUtil.java, v 0.1 2021年05月11日 10:09 AM jinyu.qjy Exp $
- */
 public class LogUtil {
 
     /**

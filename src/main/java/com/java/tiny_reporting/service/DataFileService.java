@@ -4,13 +4,6 @@
  */
 package com.java.tiny_reporting.service;
 
-/**
- * I am a DataFileService Interface
- *
- * @author jinyu.qjy
- * @version $Id: DataFileService.java, v 0.1 2021年05月11日 9:47 AM jinyu.qjy Exp $
- */
-
 public interface DataFileService {
 
     /**

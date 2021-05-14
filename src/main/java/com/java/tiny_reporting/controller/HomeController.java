@@ -9,13 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- *
- * Just a Controller
- *
- * @author jinyu.qjy
- * @version $Id: HomeController.java, v 0.1 2021年05月11日 9:31 AM jinyu.qjy Exp $
- */
 @Controller
 public class HomeController {
 

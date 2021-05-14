@@ -1,7 +1,10 @@
+/**
+ * Alipay.com Inc.
+ * Copyright (c) 2004-2021 All Rights Reserved.
+ */
 package com.java.tiny_reporting.utils;
 
 import java.util.List;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

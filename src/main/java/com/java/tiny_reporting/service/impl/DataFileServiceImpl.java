@@ -15,10 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-/**
- * @author jinyu.qjy
- * @version $Id: DataFileServiceImpl.java, v 0.1 2021年05月11日 9:55 AM jinyu.qjy Exp $
- */
 @Service
 public class DataFileServiceImpl implements DataFileService {
 

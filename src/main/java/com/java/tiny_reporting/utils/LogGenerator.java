@@ -1,3 +1,7 @@
+/**
+ * Alipay.com Inc.
+ * Copyright (c) 2004-2021 All Rights Reserved.
+ */
 package com.java.tiny_reporting.utils;
 
 import java.io.*;
@@ -25,7 +29,7 @@ public class LogGenerator {
      */
     public static String getMD5(String filePath) throws IOException, NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("MD5");
-        InputStream input = new FileInputStream(new File(filePath));
+        InputStream input = new FileInputStream(filePath);
         BufferedInputStream bis = new BufferedInputStream((input));
         byte buffer[] = new byte[1024];
         int len;
