@@ -104,15 +104,17 @@ public class CipherGenerator {
      * 加密文件
      *
      * @param srcFilePath 要加密的文件路径
-     * @param destFilePath 加密后存放的文件路径
+     * @param destFileDir 加密后存放的dir
      * @param password 自定义密码字符串
      */
-    public static void encryptFile(String srcFilePath, String destFilePath, String password) {
+    public static void encryptFile(String srcFilePath, String destFileDir, String password) {
         try {
-            File destFile = new File(destFilePath);
+            File srcFile = new File(srcFilePath);
+            String[] fileName = srcFile.getName().split("\\.");
+            File destFile = new File(destFileDir + "/" + fileName[0] + "_" + fileName[1] + ".bin");
             destFile.createNewFile();
-            InputStream input = new FileInputStream(srcFilePath);
-            OutputStream output = new FileOutputStream(destFilePath);
+            InputStream input = new FileInputStream(srcFile);
+            OutputStream output = new FileOutputStream(destFile);
             CipherInputStream cipherInput = new CipherInputStream(input, getEncryptCipher(password));
             byte[] buffer = new byte[1024];
             int len;
@@ -132,15 +134,17 @@ public class CipherGenerator {
      * 解密文件
      *
      * @param srcFilePath 要解密的文件路径
-     * @param destFilePath 解密后存放的文件路径
+     * @param destFileDir 解密后存放的dir
      * @param password 自定义密码字符串
      */
-    public static void decryptFile(String srcFilePath, String destFilePath, String password) {
+    public static void decryptFile(String srcFilePath, String destFileDir, String password) {
         try {
-            File destFile = new File(destFilePath);
+            File srcFile = new File(srcFilePath);
+            String[] fileName = srcFile.getName().split("\\.");
+            File destFile = new File(destFileDir + "/" + fileName[0] + ".txt");
             destFile.createNewFile();
-            InputStream input = new FileInputStream(srcFilePath);
-            OutputStream output = new FileOutputStream(destFilePath);
+            InputStream input = new FileInputStream(srcFile);
+            OutputStream output = new FileOutputStream(destFile);
             CipherOutputStream cipherOutput = new CipherOutputStream(output, getDecryptCipher(password));
             byte[] buffer = new byte[1024];
             int len;

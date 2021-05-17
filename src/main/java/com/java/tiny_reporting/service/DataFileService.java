@@ -7,35 +7,30 @@ package com.java.tiny_reporting.service;
 public interface DataFileService {
 
     /**
-     * 准备一个文件
+     * 生成指定个随机RandomPerson并写入filePath
      *
-     * @param fileName 文件名
-     * @param totalCount 数据量总条数
+     * @param destFilePath 生成文件储存路径
+     * @param totalCount 数据总条数
      */
-    void prepareWholeFile(String fileName, Integer totalCount);
+    void prepareWholeFile(String destFilePath, int totalCount);
 
     /**
-     * 将文件拆分
+     * 将文件拆分为最多指定条数
      *
-     * @param fileName 文件名
-     * @param groupCount 分组数量
+     * @param srcFilePath 源文件路径
+     * @param destFileDir 拆分文件储寸dir
+     * @param fileName 拆分文件名
+     * @param eachFileCount 各拆分文件最多条数
      */
-    void prepareSplitFile(String fileName, Integer groupCount);
+    void splitFile(String srcFilePath, String destFileDir, String fileName, int eachFileCount);
 
     /**
-     * 生成log文件
+     * 按RandomPerson年龄将文件拆分
      *
-     * @param fileName 文件名
+     * @param srcFilePath 源文件路径
+     * @param destFileDir 拆分文件储存dir
+     * @param fileName 拆分文件名
+     * @param groupCount 分组数
      */
-    void prepareLogFile(String fileName);
-
-    /**
-     * 并行打包文件
-     */
-    void serialZip();
-
-    /**
-     * 串行打包文件
-     */
-    void parallelZip();
+    void splitFileOnAge(String srcFilePath, String destFileDir, String fileName, int groupCount);
 }

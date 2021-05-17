@@ -22,7 +22,7 @@ public class LogGenerator {
     /**
      * 获取并返回文件的md5
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return String
      * @throws IOException
      * @throws NoSuchAlgorithmException
@@ -43,7 +43,7 @@ public class LogGenerator {
     /**
      * 获取并返回文件创建时间
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return Date
      */
     public static Date getCreateTimeDate(String filePath) {
@@ -64,7 +64,7 @@ public class LogGenerator {
     /**
      * 获取并返回文件大小
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return long
      */
     public static long getFileSize(String filePath) {
@@ -74,7 +74,7 @@ public class LogGenerator {
     /**
      * 获取并返回文件行数
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return long
      * @throws IOException
      */
@@ -85,7 +85,7 @@ public class LogGenerator {
     /**
      * 返回文件中男人总数
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return int
      * @throws IOException
      */
@@ -105,7 +105,7 @@ public class LogGenerator {
     /**
      * 返回文件中年龄是4的倍数的总和
      *
-     * @param filePath
+     * @param filePath 数据源文件路径
      * @return int
      * @throws IOException
      */
@@ -127,21 +127,21 @@ public class LogGenerator {
     /**
      * 获取并返回此文件所有信息
      *
-     * @param filePath
+     * @param srcFilePath 数据源文件路径
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public static void generateLogFile(String filePath) throws IOException, NoSuchAlgorithmException {
-        File log_file = new File(filePath.split("\\.")[0] + ".log");
+    public static void generateLogFile(String srcFilePath) throws IOException, NoSuchAlgorithmException {
+        File log_file = new File(srcFilePath.split("\\.")[0] + ".log");
         log_file.createNewFile();
         BufferedWriter out = new BufferedWriter(new FileWriter(log_file));
-        out.write(filePath + "\r\n");
-        out.write(getMD5(filePath) + "\r\n");
-        out.write(getCreateTimeDate(filePath) + "\r\n");
-        out.write(getFileSize(filePath) + "\r\n");
-        out.write(getLineNum(filePath) + "\r\n");
-        out.write(getMenNum(filePath) + "\r\n");
-        out.write(getAge4Num(filePath) + "\r\n");
+        out.write(srcFilePath + "\r\n");
+        out.write(getMD5(srcFilePath) + "\r\n");
+        out.write(getCreateTimeDate(srcFilePath) + "\r\n");
+        out.write(getFileSize(srcFilePath) + "\r\n");
+        out.write(getLineNum(srcFilePath) + "\r\n");
+        out.write(getMenNum(srcFilePath) + "\r\n");
+        out.write(getAge4Num(srcFilePath) + "\r\n");
         out.close();
     }
 }

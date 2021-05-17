@@ -4,12 +4,8 @@
  */
 package com.java.tiny_reporting.service.impl;
 
-import java.io.IOException;
-
 import com.java.tiny_reporting.service.DataFileService;
 import com.java.tiny_reporting.utils.FileGenerator;
-import com.java.tiny_reporting.utils.LogGenerator;
-import com.java.tiny_reporting.utils.ZipGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,75 +20,52 @@ public class DataFileServiceImpl implements DataFileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataFileService.class);
 
     /**
-     * 生成文件储存路径
-     */
-    private final String PATH = "src/data/original/";
-
-    /**
-     * 准备一个文件并生成指定条随机数据
+     * 生成指定个随机RandomPerson并写入文件
      *
-     * @param fileName 文件名
+     * @param destFilePath 生成文件储存路径
      * @param totalCount 数据量总条数
      */
     @Override
-    public void prepareWholeFile(String fileName, Integer totalCount) {
+    public void prepareWholeFile(String destFilePath, int totalCount) {
         try {
-            FileGenerator.createWholeFile(PATH + fileName, totalCount);
+            FileGenerator.createWholeFile(destFilePath, totalCount);
+            System.out.println("文件生成\r\n");
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}", totalCount);
+            LogUtil.error(LOGGER, e, "准备文件出现错误, 总条数{1}", totalCount);
         }
     }
 
     /**
-     * 将文件拆分
+     * 将文件拆分为最多指定条数
      *
-     * @param fileName 文件名
-     * @param groupCount 分组数量
+     * @param srcFilePath 源文件路径
+     * @param destFileDir 拆分文件储存dir
+     * @param fileName 拆分文件名
+     * @param eachFileCount 各拆分文件最多条数
      */
     @Override
-    public void prepareSplitFile(String fileName, Integer groupCount) {
+    public void splitFile(String srcFilePath, String destFileDir, String fileName, int eachFileCount) {
         try {
-            FileGenerator.createSplitFile(PATH + fileName, groupCount);
+            FileGenerator.splitFile(srcFilePath, destFileDir, fileName, eachFileCount);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}", groupCount);
+            LogUtil.error(LOGGER, e, "拆分文件出现错误, 每个文件条数{1}", eachFileCount);
         }
     }
 
     /**
-     * 生成log文件
+     * 按RandomPerson年龄将文件拆分
      *
-     * @param fileName 文件名
+     * @param srcFilePath 源文件路径
+     * @param destFileDir 拆分文件储存dir
+     * @param fileName 拆分文件名
+     * @param groupCount 分组数
      */
     @Override
-    public void prepareLogFile(String fileName){
+    public void splitFileOnAge(String srcFilePath, String destFileDir, String fileName, int groupCount) {
         try {
-            LogGenerator.generateLogFile(PATH + fileName);
+            FileGenerator.splitFileOnAge(srcFilePath, destFileDir, fileName, groupCount);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}");
-        }
-    }
-
-    /**
-     * 并行打包文件
-     */
-    @Override
-    public void serialZip(){
-        try {
-            ZipGenerator.serialZip(PATH);
-        } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}");
-        }
-    }
-
-    /**
-     * 串行打包文件
-     */
-    @Override
-    public void parallelZip(){
-        try {
-            ZipGenerator.parallelZip(PATH);
-        } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误,条数{1}");
+            LogUtil.error(LOGGER, e, "根据年龄拆分文件出现错误, 组数{1}", groupCount);
         }
     }
 }
