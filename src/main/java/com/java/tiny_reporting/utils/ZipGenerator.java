@@ -17,34 +17,36 @@ public class ZipGenerator {
     /**
      * 串行的将文件打包并计算耗时
      * 
-     * @param dataPath 需要打包的文件所在的data包路径
+     * @param srcFileDir 源文件dir
+     * @param destFileDir 打包后文件储存dir
      * @throws IOException
      */
-    public static void serialZip(String dataPath) throws IOException {
+    public static void serialZip(String srcFileDir, String destFileDir) throws IOException {
         long start = System.currentTimeMillis();
-        File file = new File(dataPath);
+        File file = new File(srcFileDir);
         File[] files = file.listFiles();
         for (File f : files) {
-            zipHelp(f);
+            zipHelp(f, destFileDir);
         }
         long end = System.currentTimeMillis();
-        System.out.println("并行压缩完成，耗时：" + (end - start) + " ms");
+        System.out.println("串行压缩完成，耗时：" + (end - start) + " ms");
     }
 
     /**
      * 并行的将文件打包并计算耗时
      * 
-     * @param dataPath 需要打包的文件所在的data包路径
+     * @param srcFileDir 源文件dir
+     * @param destFileDir 打包后文件储存dir
      */
-    public static void parallelZip(String dataPath){
+    public static void parallelZip(String srcFileDir, String destFileDir){
         long start = System.currentTimeMillis();
-        ExecutorService es = Executors.newFixedThreadPool(5);
-        File file = new File(dataPath);
+        ExecutorService es = Executors.newFixedThreadPool(10);
+        File file = new File(srcFileDir);
         File[] files = file.listFiles();
         for (File f : files) {
             Runnable task = ()->{
                 try {
-                    zipHelp(f);
+                    zipHelp(f, destFileDir);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -52,7 +54,7 @@ public class ZipGenerator {
             es.submit(task);
         }
         long end = System.currentTimeMillis();
-        System.out.println("串行压缩完成，耗时：" + (end - start) + " ms");
+        System.out.println("并行压缩完成，耗时：" + (end - start) + " ms");
     }
 
     // ～～～～～～～～～～～～～～～～～私有方法～～～～～～～～～～～～～～～～～～～～
@@ -61,12 +63,13 @@ public class ZipGenerator {
      * 将传入的文件打包成zip
      *
      * @param file 需要打包的文件
+     * @param destFileDir 打包后文件储存dir
      * @throws IOException
      */
-    private static void zipHelp(File file) throws IOException {
+    private static void zipHelp(File file, String destFileDir) throws IOException {
         //压缩文件名称
         String[] fileName = file.getName().split("\\.");
-        File zipFile = new File("src/data/zip_files/"+fileName[0]+"_"+fileName[1]+".zip");
+        File zipFile = new File(destFileDir + "/" +fileName[0]+"_"+fileName[1]+".zip");
         //输入文件流
         InputStream input = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream((input));
