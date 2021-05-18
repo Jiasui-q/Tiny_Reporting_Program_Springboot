@@ -15,10 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CipherNode implements Node{
     private String nodeName;
-    private String srcFileDir = "src/data/zip_files";
-    private String encryptFileDir = "src/data/encrypt_files";
-    private String password = "123456";
+    private String srcFileDir;
+    private String destFileDir;
+    private String password;
+//    private String srcFileDir = "src/data/zip_files";
+//    private String destFileDir = "src/data/encrypt_files";
+//    private String password = "123456";
 
+    @Override
     public String getNodeName() {
         return nodeName;
     }
@@ -27,8 +31,33 @@ public class CipherNode implements Node{
         this.nodeName = nodeName;
     }
 
+    public String getSrcFileDir() {
+        return srcFileDir;
+    }
+
+    public void setSrcFileDir(String srcFileDir) {
+        this.srcFileDir = srcFileDir;
+    }
+
+    public String getDestFileDir() {
+        return destFileDir;
+    }
+
+    public void setDestFileDir(String destFileDir) {
+        this.destFileDir = destFileDir;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
     public void execute(){
         CipherService cipherService = new CipherServiceImpl();
-        cipherService.encryptFileFromDir(srcFileDir, encryptFileDir, password);
+        cipherService.encryptFileFromDir(srcFileDir, destFileDir, password);
     }
 }

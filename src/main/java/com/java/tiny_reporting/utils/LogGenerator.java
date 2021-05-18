@@ -128,13 +128,15 @@ public class LogGenerator {
      * 获取并返回此文件所有信息
      *
      * @param srcFilePath 数据源文件路径
+     * @param destFileDir log文件储存dir
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public static void generateLogFile(String srcFilePath) throws IOException, NoSuchAlgorithmException {
-        File log_file = new File(srcFilePath.split("\\.")[0] + ".log");
-        log_file.createNewFile();
-        BufferedWriter out = new BufferedWriter(new FileWriter(log_file));
+    public static void generateLogFile(String srcFilePath, String destFileDir) throws IOException, NoSuchAlgorithmException {
+        File srcFile = new File(srcFilePath);
+        File logFile = new File(destFileDir + "/" + srcFile.getName().split("\\.")[0] + ".log");
+        logFile.createNewFile();
+        BufferedWriter out = new BufferedWriter(new FileWriter(logFile));
         out.write(srcFilePath + "\r\n");
         out.write(getMD5(srcFilePath) + "\r\n");
         out.write(getCreateTimeDate(srcFilePath) + "\r\n");

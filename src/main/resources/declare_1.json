@@ -1,0 +1,35 @@
+{
+  "flowName": "DECLARE_1",
+  "nodeList": [
+    {
+      "nodeName": "DataFileNode",
+      "wholeFilePath": "src/data/original/wholeData.txt",
+      "splitFileDir": "src/data/split_files",
+      "splitFileName": "split",
+      "totalCount": 100,
+      "eachFileCount": 10
+    },
+    {
+      "nodeName": "LogFileNode",
+      "configParam": {
+        "srcFileDir": "src/data/split_files",
+        "destFileDir": "src/data/log_files"
+      }
+    },
+    {
+      "nodeName": "ZipFileNode",
+      "configParam": {
+        "srcFileDir": "src/data/split_files",
+        "destFileDir": "src/data/zip_files"
+      }
+    },
+    {
+      "nodeName": "CipherNode",
+      "configParam": {
+        "srcFileDir": "src/data/zip_files",
+        "destFileDir": "src/data/encrypt_files",
+        "password": "123456"
+      }
+    }
+  ]
+}

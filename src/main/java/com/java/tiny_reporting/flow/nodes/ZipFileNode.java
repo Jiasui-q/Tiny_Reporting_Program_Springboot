@@ -4,9 +4,7 @@
  */
 package com.java.tiny_reporting.flow.nodes;
 
-import com.java.tiny_reporting.service.DataFileService;
 import com.java.tiny_reporting.service.ZipService;
-import com.java.tiny_reporting.service.impl.DataFileServiceImpl;
 import com.java.tiny_reporting.service.impl.ZipServiceImpl;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZipFileNode implements Node{
     private String nodeName;
-    private String srcFileDir = "src/data/split_files";
-    private String destFileDir = "src/data/zip_files";
+    private String srcFileDir;
+    private String destFileDir;
+//    private String srcFileDir = "src/data/split_files";
+//    private String destFileDir = "src/data/zip_files";
 
+    @Override
     public String getNodeName() {
         return nodeName;
     }
@@ -28,6 +29,23 @@ public class ZipFileNode implements Node{
         this.nodeName = nodeName;
     }
 
+    public String getSrcFileDir() {
+        return srcFileDir;
+    }
+
+    public void setSrcFileDir(String srcFileDir) {
+        this.srcFileDir = srcFileDir;
+    }
+
+    public String getDestFileDir() {
+        return destFileDir;
+    }
+
+    public void setDestFileDir(String destFileDir) {
+        this.destFileDir = destFileDir;
+    }
+
+    @Override
     public void execute(){
         ZipService zipService = new ZipServiceImpl();
         zipService.parallelZip(srcFileDir, destFileDir);

@@ -30,13 +30,14 @@ public class LogServiceImpl implements LogService {
      * 为传入文件生成log文件
      *
      * @param srcFilePath 源文件路径名
+     * @param destFileDir log文件储存dir
      */
     @Override
-    public void prepareLogFile(String srcFilePath){
+    public void prepareLogFile(String srcFilePath, String destFileDir){
         try {
-            LogGenerator.generateLogFile(srcFilePath);
+            LogGenerator.generateLogFile(srcFilePath, destFileDir);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{1}", srcFilePath);
+            LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{0}", srcFilePath);
         }
     }
 
@@ -44,17 +45,18 @@ public class LogServiceImpl implements LogService {
      * 为srcFileDir下所有文件生成log文件
      *
      * @param srcFileDir 源文件dir
+     * @param destFileDir log文件储存dir
      */
     @Override
-    public void prepareLogFileFromDir(String srcFileDir) {
+    public void prepareLogFileFromDir(String srcFileDir, String destFileDir) {
         File files = new File(srcFileDir);
         ExecutorService es = Executors.newFixedThreadPool(10);
         for (File file : files.listFiles()) {
             Runnable task = () -> {
                 try {
-                    LogGenerator.generateLogFile(file.getAbsolutePath());
+                    LogGenerator.generateLogFile(file.getAbsolutePath(), destFileDir);
                 } catch (Throwable e) {
-                    LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{1}", file.getAbsolutePath());
+                    LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{0}", file.getAbsolutePath());
                 }
             };
             es.submit(task);

@@ -9,5 +9,6 @@ package com.java.tiny_reporting.flow.nodes;
  * @version Node: Node.java, v 0.1 2021年05月17日 下午2:12 qinjiasui.qjs Exp $
  */
 public interface Node {
+    String getNodeName();
     void execute();
 }

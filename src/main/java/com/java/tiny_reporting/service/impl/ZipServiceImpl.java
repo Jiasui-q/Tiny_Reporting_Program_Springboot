@@ -33,7 +33,7 @@ public class ZipServiceImpl implements ZipService {
         try {
             ZipGenerator.serialZip(srcFileDir, destFileDir);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "串行打包文件出现错误,源文件dir{1}", srcFileDir);
+            LogUtil.error(LOGGER, e, "串行打包文件出现错误,源文件dir{0}", srcFileDir);
         }
     }
 
@@ -47,7 +47,7 @@ public class ZipServiceImpl implements ZipService {
         try {
             ZipGenerator.parallelZip(srcFileDir, destFileDir);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "并行打包文件出现错误, 源文件dir{1}", srcFileDir);
+            LogUtil.error(LOGGER, e, "并行打包文件出现错误, 源文件dir{0}", srcFileDir);
         }
     }
 }

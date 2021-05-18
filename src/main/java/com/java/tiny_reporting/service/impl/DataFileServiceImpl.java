@@ -31,7 +31,7 @@ public class DataFileServiceImpl implements DataFileService {
             FileGenerator.createWholeFile(destFilePath, totalCount);
             System.out.println("文件生成\r\n");
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "准备文件出现错误, 总条数{1}", totalCount);
+            LogUtil.error(LOGGER, e, "准备文件出现错误, 总条数{0}", totalCount);
         }
     }
 
@@ -48,7 +48,7 @@ public class DataFileServiceImpl implements DataFileService {
         try {
             FileGenerator.splitFile(srcFilePath, destFileDir, fileName, eachFileCount);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "拆分文件出现错误, 每个文件条数{1}", eachFileCount);
+            LogUtil.error(LOGGER, e, "拆分文件出现错误, 每个文件条数{0}", eachFileCount);
         }
     }
 
@@ -65,7 +65,7 @@ public class DataFileServiceImpl implements DataFileService {
         try {
             FileGenerator.splitFileOnAge(srcFilePath, destFileDir, fileName, groupCount);
         } catch (Throwable e) {
-            LogUtil.error(LOGGER, e, "根据年龄拆分文件出现错误, 组数{1}", groupCount);
+            LogUtil.error(LOGGER, e, "根据年龄拆分文件出现错误, 组数{0}", groupCount);
         }
     }
 }

@@ -13,13 +13,15 @@ public interface LogService {
      * 为传入文件生成log文件
      *
      * @param srcFilePath 源文件路径名
+     * @param destFileDir log文件储存dir
      */
-    void prepareLogFile(String srcFilePath);
+    void prepareLogFile(String srcFilePath, String destFileDir);
 
     /**
      * 为srcFileDir下所有文件生成log文件
      *
      * @param srcFileDir 源文件dir
+     * @param destFileDir log文件储存dir
      */
-    void prepareLogFileFromDir(String srcFileDir);
+    void prepareLogFileFromDir(String srcFileDir, String destFileDir);
 }

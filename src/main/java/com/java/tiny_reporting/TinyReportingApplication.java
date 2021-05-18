@@ -4,48 +4,19 @@
  */
 package com.java.tiny_reporting;
 
-import com.java.tiny_reporting.flow.Flow;
-import com.java.tiny_reporting.flow.FlowEngine;
+import com.java.tiny_reporting.flow.model.Flow;
 import com.java.tiny_reporting.flow.nodes.*;
-import com.java.tiny_reporting.utils.CipherGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.java.tiny_reporting.utils.FileGenerator;
-import com.java.tiny_reporting.utils.LogGenerator;
-import com.java.tiny_reporting.utils.ZipGenerator;
 
-import java.io.File;
-import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipFile;
 
 @SpringBootApplication
 public class TinyReportingApplication {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(TinyReportingApplication.class, args);
-
-		Node fileNode = new DataFileNode();
-		Node logNode = new LogFileNode();
-		Node zipNode = new ZipFileNode();
-		Node cipherNode = new CipherNode();
-
-		Flow flow = new Flow();
-		List<Node> nodes = new ArrayList<Node>(){
-			{
-				add(fileNode);
-				add(logNode);
-				add(zipNode);
-				add(cipherNode);
-			}
-		};
-		flow.setNodeList(nodes);
-
-		FlowEngine flowEngine = new FlowEngine();
-		flowEngine.setFlow(flow);
-		flowEngine.executeFlow();
-
 
 
 //		// Generate files

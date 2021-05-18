@@ -6,14 +6,7 @@ package com.java.tiny_reporting.flow.nodes;
 
 import com.java.tiny_reporting.service.LogService;
 import com.java.tiny_reporting.service.impl.LogServiceImpl;
-import com.java.tiny_reporting.utils.LogGenerator;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @author qinjiasui.qjs
@@ -22,8 +15,11 @@ import java.util.concurrent.Executors;
 @Component
 public class LogFileNode implements Node{
     private String nodeName;
-    private String srcFileDir = "src/data/split_files";
-
+    private String srcFileDir;
+    private String destFileDir;
+//    private String srcFileDir = "src/data/split_files";
+//    private String destFileDir = "src/data/log_files";
+    @Override
     public String getNodeName() {
         return nodeName;
     }
@@ -32,8 +28,25 @@ public class LogFileNode implements Node{
         this.nodeName = nodeName;
     }
 
+    public String getSrcFileDir() {
+        return srcFileDir;
+    }
+
+    public void setSrcFileDir(String srcFileDir) {
+        this.srcFileDir = srcFileDir;
+    }
+
+    public String getDestFileDir() {
+        return destFileDir;
+    }
+
+    public void setDestFileDir(String destFileDir) {
+        this.destFileDir = destFileDir;
+    }
+
+    @Override
     public void execute(){
         LogService logService = new LogServiceImpl();
-        logService.prepareLogFileFromDir(srcFileDir);
+        logService.prepareLogFileFromDir(srcFileDir, destFileDir);
     }
 }
