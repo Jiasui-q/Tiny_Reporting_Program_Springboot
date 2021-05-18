@@ -7,9 +7,10 @@ package com.java.tiny_reporting.flow.model;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * @author qinjiasui.qjs
- * @version FlowNode: FlowNode.java, v 0.1 2021年05月18日 下午4:58 qinjiasui.qjs Exp $
+ * @author jinyu.qjy
+ * @version $Id: FlowNode.java, v 0.1 2021年05月18日 3:43 PM jinyu.qjy Exp $
  */
+
 public class FlowNode {
 
     private String nodeCode;

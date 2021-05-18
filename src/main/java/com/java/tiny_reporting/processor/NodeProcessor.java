@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.flow2;
+package com.java.tiny_reporting.processor;
 
 import com.alibaba.fastjson.JSONObject;
 

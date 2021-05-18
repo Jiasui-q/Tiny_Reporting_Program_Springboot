@@ -4,14 +4,11 @@
  */
 package com.java.tiny_reporting.flow.model;
 
-import com.java.tiny_reporting.flow.nodes.Node;
-
-import javax.annotation.sql.DataSourceDefinition;
 import java.util.List;
 
 /**
- * @author qinjiasui.qjs
- * @version Flow: Flow.java, v 0.1 2021年05月17日 下午2:08 qinjiasui.qjs Exp $
+ * @author jinyu.qjy
+ * @version $Id: Flow.java, v 0.1 2021年05月18日 3:43 PM jinyu.qjy Exp $
  */
 
 public class Flow {

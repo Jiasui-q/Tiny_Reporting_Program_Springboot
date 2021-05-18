@@ -11,14 +11,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.java.tiny_reporting.flow.model.Flow;
 import com.java.tiny_reporting.flow.model.FlowNode;
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
- * @author qinjiasui.qjs
- * @version FlowEngine: FlowEngine.java, v 0.1 2021年05月17日 下午2:07 qinjiasui.qjs Exp $
+ * @author jinyu.qjy
+ * @version $Id: FlowEngine.java, v 0.1 2021年05月18日 3:46 PM jinyu.qjy Exp $
  */
 @Component
 public class FlowEngine {
@@ -30,27 +30,33 @@ public class FlowEngine {
     private FlowNodeInvoker invoker;
 
     /**
-     * @param jsonConfig
-     * @return
+     * 通过json配置获取一个flow实例
+     *
+     * @param jsonConfig json配置
+     * @return Flow
      */
     public Flow constructAFlow(String jsonConfig) {
 
-        Preconditions.checkArgument(StringUtils.isNotBlank(jsonConfig), "Blank String!");
+        //Preconditions.checkArgument(StringUtils.isNotBlank(jsonConfig), "Blank String!");
 
         Flow flow = JSONObject.parseObject(jsonConfig, Flow.class);
         return flow;
     }
 
     /**
+     * 执行flow中的node
      *
+     * @param flow
      */
     public void perform(Flow flow) {
 
         Preconditions.checkArgument(flow != null, "Invalid param");
 
         List<FlowNode> nodeList = flow.getNodeList();
+
         Preconditions.checkArgument(!CollectionUtils.isEmpty(nodeList), "Empty node list!");
 
         nodeList.forEach(node -> invoker.invoke(node.getProcessorName(), node.getControlParam()));
     }
+
 }

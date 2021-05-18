@@ -4,6 +4,8 @@
  */
 package com.java.tiny_reporting.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author qinjiasui.qjs
  * @version CipherService: CipherService.java, v 0.1 2021年05月17日 下午4:26 qinjiasui.qjs Exp $

@@ -4,8 +4,6 @@
  */
 package com.java.tiny_reporting;
 
-import com.java.tiny_reporting.flow.model.Flow;
-import com.java.tiny_reporting.flow.nodes.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -7,7 +7,6 @@ package com.java.tiny_reporting.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.java.tiny_reporting.flow.model.Flow;
-import com.java.tiny_reporting.flow.nodes.Node;
 import com.java.tiny_reporting.service.CipherService;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.apache.commons.io.FileUtils;
@@ -42,24 +41,4 @@ public class JsonConfigUtil {
         }
         return null;
     }
-
-    public static void main(String[] args) throws ClassNotFoundException {
-        JSONObject flowJson = getRoleJson("src/main/resources/declare_1.json");
-        Flow flow = JSON.toJavaObject(flowJson,Flow.class);
-        System.out.println(flow.getFlowName());
-//        for(Node n: flow.getNodeList()){
-//            System.out.println(n.getNodeName());
-//            //n.execute();
-//            System.out.println(n.getClass().getMethods().toString());
-//        }
-        JSONArray nodeJson = (JSONArray)flowJson.get("nodeList");
-        for(int i = 0; i < nodeJson.size(); i++) {
-            JSONObject nodeObject = nodeJson.getJSONObject(i);
-            String name = nodeObject.getString("nodeName");
-            Node n = (Node) JSON.toJavaObject(nodeObject, Class.forName("com.java.tiny_reporting.flow.nodes."+name));
-            System.out.println(n.getClass());
-            n.execute();
-        }
-    }
-
 }

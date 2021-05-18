@@ -32,6 +32,7 @@ public class ZipServiceImpl implements ZipService {
     public void serialZip(String srcFileDir, String destFileDir){
         try {
             ZipGenerator.serialZip(srcFileDir, destFileDir);
+            System.out.println("文件串行打包完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "串行打包文件出现错误,源文件dir{0}", srcFileDir);
         }
@@ -46,6 +47,7 @@ public class ZipServiceImpl implements ZipService {
     public void parallelZip(String srcFileDir, String destFileDir){
         try {
             ZipGenerator.parallelZip(srcFileDir, destFileDir);
+            System.out.println("文件并行打包完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "并行打包文件出现错误, 源文件dir{0}", srcFileDir);
         }

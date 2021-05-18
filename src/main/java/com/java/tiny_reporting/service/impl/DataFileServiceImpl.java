@@ -47,6 +47,7 @@ public class DataFileServiceImpl implements DataFileService {
     public void splitFile(String srcFilePath, String destFileDir, String fileName, int eachFileCount) {
         try {
             FileGenerator.splitFile(srcFilePath, destFileDir, fileName, eachFileCount);
+            System.out.println("文件拆分完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "拆分文件出现错误, 每个文件条数{0}", eachFileCount);
         }
@@ -64,6 +65,7 @@ public class DataFileServiceImpl implements DataFileService {
     public void splitFileOnAge(String srcFilePath, String destFileDir, String fileName, int groupCount) {
         try {
             FileGenerator.splitFileOnAge(srcFilePath, destFileDir, fileName, groupCount);
+            System.out.println("文件按年龄拆分完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "根据年龄拆分文件出现错误, 组数{0}", groupCount);
         }

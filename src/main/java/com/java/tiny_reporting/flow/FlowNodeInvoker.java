@@ -2,14 +2,13 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.flow2;
-
-import java.util.Map;
+package com.java.tiny_reporting.flow;
 
 import com.alibaba.fastjson.JSONObject;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
+import com.java.tiny_reporting.processor.NodeProcessor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -25,7 +24,7 @@ public class FlowNodeInvoker implements ApplicationContextAware {
     /**
      * application context
      */
-    private ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext;
 
     /**
      * Set the ApplicationContext
@@ -34,16 +33,17 @@ public class FlowNodeInvoker implements ApplicationContextAware {
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("applicationContext已经注入啦");
         this.applicationContext = applicationContext;
     }
 
-    // ~~~~~~~~~~~~~~~~~~~私有方法~~~~~~~~~~~~~~~~~~~~
 
     public void invoke(String nodeProcessorName, JSONObject controlParam) {
 
-        Preconditions.checkArgument(StringUtils.isNotBlank(nodeProcessorName), "Blank String!");
+        //Preconditions.checkArgument(StringUtils.isNotBlank(nodeProcessorName), "Blank String!");
 
         NodeProcessor processorBean = getProcessorBean(nodeProcessorName);
+
         Preconditions.checkNotNull(processorBean, "处理器获取异常,nodeProcessorName=" + nodeProcessorName);
 
         processorBean.process(controlParam);

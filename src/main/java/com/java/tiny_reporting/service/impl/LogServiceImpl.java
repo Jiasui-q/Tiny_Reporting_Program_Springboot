@@ -36,6 +36,7 @@ public class LogServiceImpl implements LogService {
     public void prepareLogFile(String srcFilePath, String destFileDir){
         try {
             LogGenerator.generateLogFile(srcFilePath, destFileDir);
+            System.out.println("log文件已生成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{0}", srcFilePath);
         }
@@ -61,5 +62,6 @@ public class LogServiceImpl implements LogService {
             };
             es.submit(task);
         }
+        System.out.println("log文件已生成\r\n");
     }
 }

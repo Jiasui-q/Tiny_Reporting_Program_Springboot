@@ -37,6 +37,7 @@ public class CipherServiceImpl implements CipherService {
     public void encryptFile(String srcFilePath, String destFileDir, String password) {
         try {
             CipherGenerator.encryptFile(srcFilePath, destFileDir, password);
+            System.out.println("文件加密完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "文件加密出现错误, 加密文件{0}", srcFilePath);
         }
@@ -53,6 +54,7 @@ public class CipherServiceImpl implements CipherService {
     public void decryptFile(String srcFilePath, String destFileDir, String password) {
         try {
             CipherGenerator.encryptFile(srcFilePath, destFileDir, password);
+            System.out.println("文件解密完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "文件解密出现错误, 解密文件{0}", srcFilePath);
         }
@@ -79,6 +81,7 @@ public class CipherServiceImpl implements CipherService {
             };
             es.submit(task);
         }
+        System.out.println("文件加密完成\r\n");
     }
 
     /**
@@ -102,5 +105,6 @@ public class CipherServiceImpl implements CipherService {
             };
             es.submit(task);
         }
+        System.out.println("文件解密完成\r\n");
     }
 }
