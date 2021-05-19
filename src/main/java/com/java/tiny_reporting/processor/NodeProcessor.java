@@ -12,5 +12,9 @@ import com.alibaba.fastjson.JSONObject;
  */
 public interface NodeProcessor {
 
+    /**
+     * 根据配置执行node流程
+     * @param controlParam
+     */
     void process(JSONObject controlParam);
 }

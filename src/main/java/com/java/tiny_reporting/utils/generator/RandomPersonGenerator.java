@@ -2,17 +2,16 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils;
+package com.java.tiny_reporting.utils.generator;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import com.java.tiny_reporting.model.Person;
+import com.java.tiny_reporting.utils.SystemPropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RandomPersonGenerator {
 
     /**

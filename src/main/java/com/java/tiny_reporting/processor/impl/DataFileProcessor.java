@@ -18,6 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataFileProcessor implements NodeProcessor {
 
+    /**
+     *  Data File Service - 生成/拆分文件
+     */
     @Autowired
     private DataFileService dataFileService;
 
@@ -29,14 +32,17 @@ public class DataFileProcessor implements NodeProcessor {
     @Override
     public void process(JSONObject controlParam) {
 
+        // 1. 检查controlParam是否为null
         Preconditions.checkArgument(controlParam!=null,"Empty controlParam");
 
+        // 2. 解析controlParam
         String wholeFilePath = controlParam.getString("wholeFilePath");
         String splitFileDir = controlParam.getString("splitFileDir");
         String splitFileName = controlParam.getString("splitFileName");
         int totalCount = controlParam.getIntValue("totalCount");
         int eachFileCount = controlParam.getIntValue("eachFileCount");
 
+        // 3. 生成文件并拆分
         dataFileService.prepareWholeFile(wholeFilePath, totalCount);
         dataFileService.splitFile(wholeFilePath, splitFileDir, splitFileName, eachFileCount);
     }

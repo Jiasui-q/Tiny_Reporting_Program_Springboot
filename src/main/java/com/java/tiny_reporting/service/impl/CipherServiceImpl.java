@@ -5,7 +5,7 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.CipherService;
-import com.java.tiny_reporting.utils.CipherGenerator;
+import com.java.tiny_reporting.utils.generator.CipherGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
  * @author qinjiasui.qjs
  * @version CipherService: CipherServiceImpl.java, v 0.1 2021年05月17日 下午4:25 qinjiasui.qjs Exp $
  */
+
 @Service
 public class CipherServiceImpl implements CipherService {
 

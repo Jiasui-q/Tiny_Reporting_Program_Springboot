@@ -5,7 +5,7 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.DataFileService;
-import com.java.tiny_reporting.utils.FileGenerator;
+import com.java.tiny_reporting.utils.generator.FileGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

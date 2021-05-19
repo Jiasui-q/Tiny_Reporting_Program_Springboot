@@ -7,7 +7,7 @@ package com.java.tiny_reporting.flow;
 import com.alibaba.fastjson.JSONObject;
 
 import com.google.common.base.Preconditions;
-//import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import com.java.tiny_reporting.processor.NodeProcessor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
  * @author jinyu.qjy
  * @version $Id: FlowNodeInvoker.java, v 0.1 2021年05月18日 4:05 PM jinyu.qjy Exp $
  */
+
 @Component
 public class FlowNodeInvoker implements ApplicationContextAware {
 
@@ -37,17 +38,28 @@ public class FlowNodeInvoker implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-
+    /**
+     * 获取processor并执行其process方法
+     *
+     * @param nodeProcessorName
+     * @param controlParam
+     */
     public void invoke(String nodeProcessorName, JSONObject controlParam) {
 
-        //Preconditions.checkArgument(StringUtils.isNotBlank(nodeProcessorName), "Blank String!");
+        // 1. 检查processor名字是否为空
+        Preconditions.checkArgument(StringUtils.isNotBlank(nodeProcessorName), "Blank String!");
 
+        // 2. 得到processor bean
         NodeProcessor processorBean = getProcessorBean(nodeProcessorName);
 
+        // 3. 检查processor bean是否存在
         Preconditions.checkNotNull(processorBean, "处理器获取异常,nodeProcessorName=" + nodeProcessorName);
 
+        // 4. 执行process方法
         processorBean.process(controlParam);
     }
+
+    // ~~~~~~~~~~~~~~~~~~~私有方法~~~~~~~~~~~~~~~~~~~~
 
     /**
      * 获取processor bean

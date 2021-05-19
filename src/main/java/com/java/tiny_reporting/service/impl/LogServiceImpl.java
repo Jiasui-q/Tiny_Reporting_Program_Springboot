@@ -5,7 +5,7 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.LogService;
-import com.java.tiny_reporting.utils.LogGenerator;
+import com.java.tiny_reporting.utils.generator.LogGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
  * @author qinjiasui.qjs
  * @version LogServiceImpl: LogServiceImpl.java, v 0.1 2021年05月17日 下午2:43 qinjiasui.qjs Exp $
  */
+
 @Service
 public class LogServiceImpl implements LogService {
 

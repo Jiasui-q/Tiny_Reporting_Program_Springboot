@@ -5,7 +5,7 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.ZipService;
-import com.java.tiny_reporting.utils.ZipGenerator;
+import com.java.tiny_reporting.utils.generator.ZipGenerator;
 import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @author qinjiasui.qjs
  * @version ZipServiceImpl: ZipServiceImpl.java, v 0.1 2021年05月17日 下午2:45 qinjiasui.qjs Exp $
  */
+
 @Service
 public class ZipServiceImpl implements ZipService {
 

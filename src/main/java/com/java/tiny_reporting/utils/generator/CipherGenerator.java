@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils;
+package com.java.tiny_reporting.utils.generator;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,6 +18,7 @@ import java.security.spec.X509EncodedKeySpec;
  * @author qinjiasui.qjs
  * @version CipherGeneretor: CipherGenerator.java, v 0.1 2021年05月14日 上午10:09 qinjiasui.qjs Exp $
  */
+
 public class CipherGenerator {
 
     /**
@@ -51,16 +52,19 @@ public class CipherGenerator {
      */
     private static Cipher getCipher(int model, String password) {
         try {
-            //获取加密生成器
+            // 1. 获取加密生成器
             KeyGenerator keyGenerator = KeyGenerator.getInstance(SYMMETRIC_KEY_ALGORITHM);
             SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
             secureRandom.setSeed(password.getBytes());
             keyGenerator.init(128,secureRandom);
-            //产生原始对称密钥
+
+            // 2. 产生原始对称密钥
             SecretKey originalKey = keyGenerator.generateKey();
-            //获得原始对称密钥的字节数组
+
+            // 3. 获得原始对称密钥的字节数组
             byte[] byteKey = originalKey.getEncoded();
-            //根据字节数组生成AES密钥
+
+            // 4. 根据字节数组生成AES密钥
             SecretKey AESKey = new SecretKeySpec(byteKey, SYMMETRIC_KEY_ALGORITHM);
             Cipher cipher=Cipher.getInstance(SYMMETRIC_KEY_ALGORITHM);
             cipher.init(model, AESKey);

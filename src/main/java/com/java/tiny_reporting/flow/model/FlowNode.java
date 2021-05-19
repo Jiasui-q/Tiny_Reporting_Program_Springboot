@@ -13,12 +13,19 @@ import com.alibaba.fastjson.JSONObject;
 
 public class FlowNode {
 
+    /**
+     * 节点名称
+     */
     private String nodeCode;
 
-    private String nodeName;
-
+    /**
+     * 此节点对应的processor
+     */
     private String processorName;
 
+    /**
+     * processor的参数配置
+     */
     private JSONObject controlParam;
 
     /**
@@ -37,24 +44,6 @@ public class FlowNode {
      */
     public void setNodeCode(String nodeCode) {
         this.nodeCode = nodeCode;
-    }
-
-    /**
-     * Getter method for property <tt>nodeName</tt>.
-     *
-     * @return property value of nodeName
-     */
-    public String getNodeName() {
-        return nodeName;
-    }
-
-    /**
-     * Setter method for property <tt>nodeName</tt>.
-     *
-     * @param nodeName value be assigned to nodeName
-     */
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
     }
 
     /**

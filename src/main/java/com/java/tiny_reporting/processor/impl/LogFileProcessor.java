@@ -7,7 +7,6 @@ package com.java.tiny_reporting.processor.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.java.tiny_reporting.processor.NodeProcessor;
-import com.java.tiny_reporting.service.DataFileService;
 import com.java.tiny_reporting.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogFileProcessor implements NodeProcessor {
 
+    /**
+     * Log Service - 生成log文件
+     */
     @Autowired
     private LogService logService;
 
@@ -30,11 +32,14 @@ public class LogFileProcessor implements NodeProcessor {
     @Override
     public void process(JSONObject controlParam) {
 
+        // 1. 检查controlParam是否为null
         Preconditions.checkArgument(controlParam!=null,"Empty controlParam");
 
+        // 2. 解析controlParam
         String srcFileDir = controlParam.getString("srcFileDir");
         String destFileDir = controlParam.getString("destFileDir");
 
+        // 3. 为文件夹下文件生成log文件
         logService.prepareLogFileFromDir(srcFileDir, destFileDir);
     }
 }

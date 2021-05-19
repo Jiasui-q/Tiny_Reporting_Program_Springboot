@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils;
+package com.java.tiny_reporting.utils.generator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.google.common.base.Joiner;
 import com.java.tiny_reporting.model.Person;
+import com.java.tiny_reporting.utils.SystemPropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class FileGenerator {
 
     /**

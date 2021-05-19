@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils;
+package com.java.tiny_reporting.utils.generator;
 
 import java.io.*;
 import java.math.BigInteger;

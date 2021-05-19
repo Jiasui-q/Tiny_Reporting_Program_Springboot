@@ -13,8 +13,14 @@ import java.util.List;
 
 public class Flow {
 
+    /**
+     * flow名称
+     */
     private String flowCode;
 
+    /**
+     * flow含有的FlowNode
+     */
     private List<FlowNode> nodeList;
 
     /**
