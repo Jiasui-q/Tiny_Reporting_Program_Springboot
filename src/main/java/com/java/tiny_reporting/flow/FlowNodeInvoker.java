@@ -38,6 +38,8 @@ public class FlowNodeInvoker implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
+    // ~~~~~~~~~~~~~~~~~~~公有方法~~~~~~~~~~~~~~~~~~~~
+
     /**
      * 获取processor并执行其process方法
      *

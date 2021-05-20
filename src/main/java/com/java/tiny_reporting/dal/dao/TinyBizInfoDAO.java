@@ -25,5 +25,5 @@ public interface TinyBizInfoDAO {
     int update(TinyBizInfoDO tinyBizInfoDO);
 
     @Delete("DELETE FROM tiny_biz_info WHERE biz_info_id = #{bizInfoId}")
-    void delete(@Param("bizInfoId") Integer bizInfoId);
+    void deleteByBizInfoId(@Param("bizInfoId") Integer bizInfoId);
 }

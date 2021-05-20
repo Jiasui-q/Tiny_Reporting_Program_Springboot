@@ -24,12 +24,12 @@ public class RandomPersonGenerator {
      */
     private static Random random = new Random();
 
-    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
-
     @Autowired
     public void init(SystemPropertiesConfig systemPropertiesConfig) {
         RandomPersonGenerator.systemPropertiesConfig = systemPropertiesConfig;
     }
+
+    // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
 
     /**
      * 生成单个person以及它的随机信息

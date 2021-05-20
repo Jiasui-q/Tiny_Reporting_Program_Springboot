@@ -4,6 +4,8 @@
  */
 package com.java.tiny_reporting.dal.dataobject;
 
+import java.util.Date;
+
 /**
  * @author qinjiasui.qjs
  * @version TinyBizInfo: TinyBizInfo.java, v 0.1 2021年05月19日 1:38 下午 qinjiasui.qjs Exp $
@@ -38,12 +40,12 @@ public class TinyBizInfoDO {
     /**
      * This property corresponds to db column <tt>gmt_create</tt>.
      */
-    private String gmtCreate;
+    private Date gmtCreate;
 
     /**
      * This property corresponds to db column <tt>gmt_modified</tt>.
      */
-    private String gmtModified;
+    private Date gmtModified;
 
     //========== getters and setters ==========
 
@@ -142,7 +144,7 @@ public class TinyBizInfoDO {
      *
      * @return property value of gmtCreate
      */
-    public String getGmtCreate() {
+    public Date getGmtCreate() {
         return gmtCreate;
     }
 
@@ -151,7 +153,7 @@ public class TinyBizInfoDO {
      *
      * @param gmtCreate value to be assigned to property gmtCreate
      */
-    public void setGmtCreate(String gmtCreate) {
+    public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
@@ -160,7 +162,7 @@ public class TinyBizInfoDO {
      *
      * @return property value of jsonConfig
      */
-    public String getGmtModified() {
+    public Date getGmtModified() {
         return gmtModified;
     }
 
@@ -169,7 +171,7 @@ public class TinyBizInfoDO {
      *
      * @param gmtModified value to be assigned to property gmtModified
      */
-    public void setGmtModified(String gmtModified) {
+    public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
     }
 

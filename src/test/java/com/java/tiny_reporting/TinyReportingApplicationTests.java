@@ -34,8 +34,8 @@ class TinyReportingApplicationTests {
 		tinyBizInfoDO.setBu("微贷");
 		tinyBizInfoDO.setOwner("嘉穗");
 		tinyBizInfoDO.setDescription("监管报送，涉及文件生成，文件拆分，log生成，打包，加密。");
-		tinyBizInfoDO.setGmtCreate(DateUtil.getGMTDate());
-		tinyBizInfoDO.setGmtModified(DateUtil.getGMTDate());
+		tinyBizInfoDO.setGmtCreate(DateUtil.getNow());
+		tinyBizInfoDO.setGmtModified(DateUtil.getNow());
 		System.out.println(tinyBizInfoDO.toString());
 
 		// 将实例加入 tiny_biz_info 表, 检测是否成功
@@ -51,8 +51,8 @@ class TinyReportingApplicationTests {
 		tinyFlowConfigDO.setConfigId(1);
 		tinyFlowConfigDO.setBizInfoId(1);
 		tinyFlowConfigDO.setJsonConfig(JsonConfigUtil.getJsonString("src/main/resources/json_files/declare_1.json"));
-		tinyFlowConfigDO.setGmtCreate(DateUtil.getGMTDate());
-		tinyFlowConfigDO.setGmtModified(DateUtil.getGMTDate());
+		tinyFlowConfigDO.setGmtCreate(DateUtil.getNow());
+		tinyFlowConfigDO.setGmtModified(DateUtil.getNow());
 		System.out.println(tinyFlowConfigDO.toString());
 
 		// 将实例加入 tiny_flow_config 表, 检测是否成功

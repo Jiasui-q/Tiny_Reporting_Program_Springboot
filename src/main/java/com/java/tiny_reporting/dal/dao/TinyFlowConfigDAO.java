@@ -7,6 +7,8 @@ package com.java.tiny_reporting.dal.dao;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowConfigDO;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
+
 /**
  * @author qinjiasui.qjs
  * @version TinyFlowConfigMapper: TinyFlowConfigMapper.java, v 0.1 2021年05月19日 1:39 下午 qinjiasui.qjs Exp $
@@ -25,9 +27,9 @@ public interface TinyFlowConfigDAO {
     String queryJsonConfigByConfigId(@Param("configId") Integer configId);
 
     @Update("UPDATE tiny_flow_config SET json_config=#{jsonConfig}, gmt_modified=#{gmtModified} WHERE config_id = #{configId}")
-    int update(@Param("jsonConfig") String jsonConfig, @Param("gmtModified") String gmtModified, @Param("configId") Integer configId);
+    int update(@Param("jsonConfig") String jsonConfig, @Param("gmtModified") Date gmtModified, @Param("configId") Integer configId);
 
     @Delete("DELETE FROM tiny_flow_config WHERE config_id = #{configId}")
-    void delete(@Param("configId") Integer configId);
+    void deleteByConfigId(@Param("configId") Integer configId);
 
 }
