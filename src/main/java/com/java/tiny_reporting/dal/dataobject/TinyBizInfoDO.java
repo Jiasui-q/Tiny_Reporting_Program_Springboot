@@ -13,7 +13,7 @@ import java.util.Date;
 public class TinyBizInfoDO {
 
     /**
-     * This property corresponds to db column <tt>biz-info-id</tt>.
+     * This property corresponds to db column <tt>biz_info_id</tt>.
      */
     private Integer bizInfoId;
 

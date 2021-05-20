@@ -7,6 +7,8 @@ package com.java.tiny_reporting.dal.dao;
 import com.java.tiny_reporting.dal.dataobject.TinyBizInfoDO;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author qinjiasui.qjs
  * @version TinyBizInfoMapper: TinyBizInfoMapper.java, v 0.1 2021年05月19日 1:40 下午 qinjiasui.qjs Exp $
@@ -20,6 +22,9 @@ public interface TinyBizInfoDAO {
 
     @Select("SELECT * FROM tiny_biz_info WHERE biz_info_id = #{bizInfoId}")
     TinyBizInfoDO queryByBizInfoId(@Param("bizInfoId") Integer bizInfoId);
+
+    @Select("SELECT * FROM tiny_biz_info")
+    List<TinyBizInfoDO> queryAllBizInfo();
 
     @Update("UPDATE tiny_biz_info SET biz_name=#{bizName}, bu=#{bu}, owner=#{owner}, description=#{description}, gmt_modified=#{gmtModified} WHERE biz_info_id = #{bizInfoId}")
     int update(TinyBizInfoDO tinyBizInfoDO);

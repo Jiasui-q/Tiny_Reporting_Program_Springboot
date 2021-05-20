@@ -11,6 +11,8 @@ import com.java.tiny_reporting.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author qinjiasui.qjs
  * @version TinyBizInfoDAOService: TinyBizInfoDAOService.java, v 0.1 2021年05月20日 10:29 上午 qinjiasui.qjs Exp $
@@ -34,6 +36,16 @@ public class TinyBizInfoDAOServiceImpl implements TinyBIzInfoDAOService {
         tinyBizInfoDO.setGmtModified(DateUtil.getNow());
         tinyBizInfoDAO.insertTinyBizInfo(tinyBizInfoDO);
         System.out.println(tinyBizInfoDAO.queryByBizInfoId(bizInfoId).toString());
+    }
+
+    @Override
+    public TinyBizInfoDO findBizInfoById(Integer bizInfoId){
+        return tinyBizInfoDAO.queryByBizInfoId(bizInfoId);
+    }
+
+    @Override
+    public List<TinyBizInfoDO> findAllBizInfo(){
+        return tinyBizInfoDAO.queryAllBizInfo();
     }
 
     @Override

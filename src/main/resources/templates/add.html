@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Biz Info 新增页面</title>
+    <title>BizInfo新增页面</title>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.js"></script>
 </head>
 <body>
+请添加Biz Info
 <form id="form1">
-    <div> <input name="userId" id="userId"  placeholder="请输入userid"></div>
-    <div> <input name="userName" id="userName"   placeholder="请输入username"></div>
-    <div> <input  type="button" value="新增" id="btnSave"/></div>
+    <div> <input name="bizInfoId" id="bizInfoId"  placeholder="请输入BizInfoId"></div>
+    <div> <input name="bizName" id="bizName"   placeholder="请输入BizName"></div>
+    <div> <input name="bu" id="bu"   placeholder="请输入Bu"></div>
+    <div> <input name="owner" id="owner"   placeholder="请输入Owner"></div>
+    <div> <input name="description" id="description"   placeholder="请输入Description"></div>
+    <div> <input  type="button" value="添加" id="btnSave"/></div>
 </form>
 <script>
     $(function () {
@@ -20,7 +22,7 @@
             $.ajax({
                 cache: true,
                 type: "POST",
-                url: "/user/save",
+                url: "/tinyBizInfo/save",
                 data:$('#form1').serialize(),
                 dataType:"json",
                 async: false,
