@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Biz Info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>搜索 Biz Info</h1>
+
+<form action="#" th:action="@{/bizInfo/search}" th:object="${tinyBizInfoDO}" method="post">
+    <p>
+        Id: <input type="text" th:field="*{bizInfoId}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
+    </p>
+</form>
+
+</body>
+</html>

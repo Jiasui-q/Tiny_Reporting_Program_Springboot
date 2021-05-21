@@ -11,6 +11,8 @@ import com.java.tiny_reporting.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author qinjiasui.qjs
  * @version TinyFlowConfigDAOService: TinyFlowConfigDAOService.java, v 0.1 2021年05月20日 10:28 上午 qinjiasui.qjs Exp $
@@ -32,6 +34,16 @@ public class TinyFlowConfigDAOServiceImpl implements TinyFlowConfigDAOService {
         tinyFlowConfigDO.setJsonConfig(jsonConfig);
         tinyFlowConfigDAO.insertTinyFlowConfig(tinyFlowConfigDO);
         System.out.println(tinyFlowConfigDAO.queryByConfigId(configId).toString());
+    }
+
+    @Override
+    public TinyFlowConfigDO findFlowConfigById(Integer configId){
+        return tinyFlowConfigDAO.queryByConfigId(configId);
+    }
+
+    @Override
+    public List<TinyFlowConfigDO> findAllFlowConfig(){
+        return tinyFlowConfigDAO.queryAllFlowConfig();
     }
 
     @Override

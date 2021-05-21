@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Biz Info Deleted</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>成功删除 Biz Info</h2>
+
+<p th:text="'Biz Info Id: ' + ${#request.getParameter('bizInfoId')}"></p>
+<a href="/bizInfo/delete">Delete another Biz Info</a>
+
+</body>
+</html>

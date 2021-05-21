@@ -20,7 +20,7 @@ public interface TinyBizInfoDAO {
     @Insert("INSERT INTO tiny_biz_info VALUES(#{bizInfoId}, #{bizName}, #{bu}, #{owner}, #{description}, #{gmtCreate}, #{gmtModified})")
     int insertTinyBizInfo(TinyBizInfoDO tinyBizInfoDO);
 
-    @Select("SELECT * FROM tiny_biz_info WHERE biz_info_id = #{bizInfoId}")
+    @Select("SELECT * FROM tiny_biz_info WHERE biz_info_id=#{bizInfoId}")
     TinyBizInfoDO queryByBizInfoId(@Param("bizInfoId") Integer bizInfoId);
 
     @Select("SELECT * FROM tiny_biz_info")
@@ -29,6 +29,6 @@ public interface TinyBizInfoDAO {
     @Update("UPDATE tiny_biz_info SET biz_name=#{bizName}, bu=#{bu}, owner=#{owner}, description=#{description}, gmt_modified=#{gmtModified} WHERE biz_info_id = #{bizInfoId}")
     int update(TinyBizInfoDO tinyBizInfoDO);
 
-    @Delete("DELETE FROM tiny_biz_info WHERE biz_info_id = #{bizInfoId}")
+    @Delete("DELETE FROM tiny_biz_info WHERE biz_info_id=#{bizInfoId}")
     void deleteByBizInfoId(@Param("bizInfoId") Integer bizInfoId);
 }

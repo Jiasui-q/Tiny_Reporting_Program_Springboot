@@ -4,10 +4,12 @@
  */
 package com.java.tiny_reporting.dal.dao;
 
+import com.java.tiny_reporting.dal.dataobject.TinyBizInfoDO;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowConfigDO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author qinjiasui.qjs
@@ -22,6 +24,9 @@ public interface TinyFlowConfigDAO {
 
     @Select("SELECT * FROM tiny_flow_config WHERE config_id = #{configId}")
     TinyFlowConfigDO queryByConfigId(@Param("configId") Integer configId);
+
+    @Select("SELECT * FROM tiny_flow_config")
+    List<TinyFlowConfigDO> queryAllFlowConfig();
 
     @Select("SELECT json_config FROM tiny_flow_config WHERE config_id = #{configId}")
     String queryJsonConfigByConfigId(@Param("configId") Integer configId);

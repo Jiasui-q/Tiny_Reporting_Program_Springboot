@@ -4,10 +4,12 @@
  */
 package com.java.tiny_reporting.dal.dao;
 
+import com.java.tiny_reporting.dal.dataobject.TinyFlowConfigDO;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowInstanceDO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author qinjiasui.qjs
@@ -22,6 +24,9 @@ public interface TinyFlowInstanceDAO {
 
     @Select("SELECT * FROM tiny_flow_instance WHERE flow_id = #{flowId}")
     TinyFlowInstanceDO queryByFlowId(@Param("flowId") Integer flowId);
+
+    @Select("SELECT * FROM tiny_flow_instance")
+    List<TinyFlowInstanceDO> queryAllFlowInstance();
 
     @Update("UPDATE tiny_flow_instance SET status=#{status}, curr_node=#{currNode}, gmt_modified=#{gmtModified} WHERE flow_id = #{flowId}")
     int update(@Param("status") String status, @Param("currNode") String currNode, @Param("gmtModified") Date gmtModified, @Param("flowId") Integer flowId);

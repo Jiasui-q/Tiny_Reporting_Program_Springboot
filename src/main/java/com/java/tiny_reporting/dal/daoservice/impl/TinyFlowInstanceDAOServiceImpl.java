@@ -6,11 +6,14 @@ package com.java.tiny_reporting.dal.daoservice.impl;
 
 import com.java.tiny_reporting.dal.dao.TinyFlowInstanceDAO;
 import com.java.tiny_reporting.dal.daoservice.TinyFlowInstanceDAOService;
+import com.java.tiny_reporting.dal.dataobject.TinyFlowConfigDO;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowInstanceDO;
 import com.java.tiny_reporting.enums.FlowStatusEnum;
 import com.java.tiny_reporting.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author qinjiasui.qjs
@@ -34,6 +37,16 @@ public class TinyFlowInstanceDAOServiceImpl implements TinyFlowInstanceDAOServic
         tinyFlowInstanceDO.setGmtModified(DateUtil.getNow());
         tinyFlowInstanceDAO.insertTinyFlowInstance(tinyFlowInstanceDO);
         System.out.println(tinyFlowInstanceDAO.queryByFlowId(flowId).toString());
+    }
+
+    @Override
+    public TinyFlowInstanceDO findFlowInstanceById(Integer flowId){
+        return tinyFlowInstanceDAO.queryByFlowId(flowId);
+    }
+
+    @Override
+    public List<TinyFlowInstanceDO> findAllFlowInstance(){
+        return tinyFlowInstanceDAO.queryAllFlowInstance();
     }
 
     @Override

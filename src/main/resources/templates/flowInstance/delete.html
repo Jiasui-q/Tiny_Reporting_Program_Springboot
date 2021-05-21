@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Flow Instance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>删除 Flow Instance 信息</h1>
+
+<form action="#" th:action="@{/flowInstance/delete}" th:object="${tinyFlowInstanceDO}" method="post">
+    <p>
+        FlowId: <input type="text" th:field="*{flowId}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
+    </p>
+</form>
+
+</body>
+</html>

@@ -15,6 +15,11 @@ spring:
         content-type: text/html
         mode: HTML5
 
+mybatis:
+  configuration:
+    # 开启驼峰命名
+    map-underscore-to-camel-case: true
+
 random-person-info:
   surnameList: ["赵","钱","孙","李","周","吴","郑","王","冯","陈","楮","卫","蒋","沈","韩","杨",
             "朱","秦","尤","许","何","吕","施","张","孔","曹","严","华","金","魏","陶","姜",

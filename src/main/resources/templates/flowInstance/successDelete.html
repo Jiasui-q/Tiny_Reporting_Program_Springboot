@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Flow Instance Deleted</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>成功删除 Flow Instance</h2>
+
+<p th:text="'Flow Instance Id: ' + ${#request.getParameter('flowId')}"></p>
+<a href="/flowInstance/delete">Delete another Flow Instance</a>
+
+</body>
+</html>

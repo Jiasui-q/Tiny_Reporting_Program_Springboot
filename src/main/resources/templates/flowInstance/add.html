@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Flow Instance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h1>执行 Flow Instance</h1>
+
+<form action="#" th:action="@{/flowInstance/add}" th:object="${tinyFlowInstanceDO}" method="post">
+    <p>
+        FlowId: <input type="text" th:field="*{flowId}">
+    </p>
+    <p>
+        ConfigId: <input type="text" th:field="*{configId}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
+    </p>
+</form>
+
+</body>
+</html>
