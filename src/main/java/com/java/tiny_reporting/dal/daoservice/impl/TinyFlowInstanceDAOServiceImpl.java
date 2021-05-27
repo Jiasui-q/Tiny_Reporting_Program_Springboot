@@ -6,7 +6,6 @@ package com.java.tiny_reporting.dal.daoservice.impl;
 
 import com.java.tiny_reporting.dal.dao.TinyFlowInstanceDAO;
 import com.java.tiny_reporting.dal.daoservice.TinyFlowInstanceDAOService;
-import com.java.tiny_reporting.dal.dataobject.TinyFlowConfigDO;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowInstanceDO;
 import com.java.tiny_reporting.enums.FlowStatusEnum;
 import com.java.tiny_reporting.utils.DateUtil;

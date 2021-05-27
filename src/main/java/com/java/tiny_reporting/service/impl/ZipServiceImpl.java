@@ -22,7 +22,7 @@ public class ZipServiceImpl implements ZipService {
     /**
      * LOGGER
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZipService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZipServiceImpl.class);
 
     /**
      * 串行打包文件

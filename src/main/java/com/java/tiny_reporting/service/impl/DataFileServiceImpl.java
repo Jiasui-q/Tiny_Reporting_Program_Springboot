@@ -17,7 +17,7 @@ public class DataFileServiceImpl implements DataFileService {
     /**
      * LOGGER
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataFileService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataFileServiceImpl.class);
 
     /**
      * 生成指定个随机RandomPerson并写入文件

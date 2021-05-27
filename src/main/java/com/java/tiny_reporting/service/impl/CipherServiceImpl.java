@@ -25,7 +25,7 @@ public class CipherServiceImpl implements CipherService {
     /**
      * LOGGER
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CipherService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CipherServiceImpl.class);
 
     /**
      * 加密文件

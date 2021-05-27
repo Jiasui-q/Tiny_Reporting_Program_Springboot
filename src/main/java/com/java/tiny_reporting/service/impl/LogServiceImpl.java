@@ -25,7 +25,7 @@ public class LogServiceImpl implements LogService {
     /**
      * LOGGER
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogServiceImpl.class);
 
     /**
      * 为传入文件生成log文件
