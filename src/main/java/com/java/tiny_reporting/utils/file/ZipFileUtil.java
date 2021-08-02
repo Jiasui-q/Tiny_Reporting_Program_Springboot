@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils.generator;
+package com.java.tiny_reporting.utils.file;
 
 import java.io.*;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipGenerator {
+public class ZipFileUtil {
 
     // ～～～～～～～～～～～～～～～～～公有方法～～～～～～～～～～～～～～～～～～～～
 

@@ -5,8 +5,8 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.LogService;
-import com.java.tiny_reporting.utils.generator.LogGenerator;
-import com.java.tiny_reporting.utils.logger.LogUtil;
+import com.java.tiny_reporting.utils.LogUtil;
+import com.java.tiny_reporting.utils.file.LogFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public void prepareLogFile(String srcFilePath, String destFileDir){
         try {
-            LogGenerator.generateLogFile(srcFilePath, destFileDir);
+            com.java.tiny_reporting.utils.file.LogFileUtil.generateLogFile(srcFilePath, destFileDir);
             System.out.println("log文件已生成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{0}", srcFilePath);
@@ -56,7 +56,7 @@ public class LogServiceImpl implements LogService {
         for (File file : files.listFiles()) {
             Runnable task = () -> {
                 try {
-                    LogGenerator.generateLogFile(file.getAbsolutePath(), destFileDir);
+                    LogFileUtil.generateLogFile(file.getAbsolutePath(), destFileDir);
                 } catch (Throwable e) {
                     LogUtil.error(LOGGER, e, "准备log文件出现错误,源文件{0}", file.getAbsolutePath());
                 }

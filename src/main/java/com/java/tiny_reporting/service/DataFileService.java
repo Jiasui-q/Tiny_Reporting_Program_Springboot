@@ -8,11 +8,11 @@ public interface DataFileService {
 
     /**
      * 生成指定个随机RandomPerson并写入filePath
-     *
-     * @param destFilePath 生成文件储存路径
+     *  @param destFileDir 生成文件储存Dir
+     * @param fileName 生成文件名
      * @param totalCount 数据总条数
      */
-    void prepareWholeFile(String destFilePath, int totalCount);
+    void prepareWholeFile(String destFileDir, String fileName, int totalCount);
 
     /**
      * 将文件拆分为最多指定条数

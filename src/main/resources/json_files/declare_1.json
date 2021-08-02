@@ -5,8 +5,9 @@
       "nodeCode": "DATA_FILE_NODE",
       "processorName": "dataFileProcessor",
       "controlParam": {
-        "wholeFilePath": "src/data/original/wholeData.txt",
-        "splitFileDir": "src/data/split_files",
+        "wholeFileDir": "flow1/original",
+        "wholeFileName": "wholeData",
+        "splitFileDir": "flow1/split_files",
         "splitFileName": "split",
         "totalCount": 100,
         "eachFileCount": 10
@@ -16,24 +17,24 @@
       "nodeCode": "LOG_FILE_NODE",
       "processorName": "logFileProcessor",
       "controlParam": {
-        "srcFileDir": "src/data/split_files",
-        "destFileDir": "src/data/log_files"
+        "srcFileDir": "flow1/split_files",
+        "destFileDir": "flow1/log_files"
       }
     },
     {
       "nodeCode": "ZIP_FILE_NODE",
       "processorName": "zipFileProcessor",
       "controlParam": {
-        "srcFileDir": "src/data/split_files",
-        "destFileDir": "src/data/zip_files"
+        "srcFileDir": "flow1/split_files",
+        "destFileDir": "flow1/zip_files"
       }
     },
     {
       "nodeCode": "CIPHER_NODE",
       "processorName": "cipherProcessor",
       "controlParam": {
-        "srcFileDir": "src/data/zip_files",
-        "destFileDir": "src/data/encrypt_files",
+        "srcFileDir": "flow1/zip_files",
+        "destFileDir": "flow1/encrypt_files",
         "password": "123456"
       }
     }

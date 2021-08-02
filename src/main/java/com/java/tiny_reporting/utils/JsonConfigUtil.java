@@ -7,7 +7,6 @@ package com.java.tiny_reporting.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
-import com.java.tiny_reporting.utils.logger.LogUtil;
 import org.apache.commons.io.FileUtils;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;

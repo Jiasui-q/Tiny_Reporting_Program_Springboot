@@ -25,7 +25,7 @@ public class TinyFlowConfigDAOServiceImpl implements TinyFlowConfigDAOService {
     private TinyFlowConfigDAO tinyFlowConfigDAO;
 
     @Override
-    public void addNewFlowConfig(Integer bizInfoId, Integer configId, String jsonConfig){
+    public void addNewFlowConfig(Integer bizInfoId, Integer configId, String jsonConfig) {
         TinyFlowConfigDO tinyFlowConfigDO = new TinyFlowConfigDO();
         tinyFlowConfigDO.setConfigId(configId);
         tinyFlowConfigDO.setBizInfoId(bizInfoId);

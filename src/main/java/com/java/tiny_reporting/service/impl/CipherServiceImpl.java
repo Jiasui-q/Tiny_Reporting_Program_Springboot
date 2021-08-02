@@ -5,8 +5,8 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.CipherService;
-import com.java.tiny_reporting.utils.generator.CipherGenerator;
-import com.java.tiny_reporting.utils.logger.LogUtil;
+import com.java.tiny_reporting.utils.file.CipherUtil;
+import com.java.tiny_reporting.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class CipherServiceImpl implements CipherService {
     @Override
     public void encryptFile(String srcFilePath, String destFileDir, String password) {
         try {
-            CipherGenerator.encryptFile(srcFilePath, destFileDir, password);
+            CipherUtil.encryptFile(srcFilePath, destFileDir, password);
             System.out.println("文件加密完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "文件加密出现错误, 加密文件{0}", srcFilePath);
@@ -54,7 +54,7 @@ public class CipherServiceImpl implements CipherService {
     @Override
     public void decryptFile(String srcFilePath, String destFileDir, String password) {
         try {
-            CipherGenerator.encryptFile(srcFilePath, destFileDir, password);
+            CipherUtil.encryptFile(srcFilePath, destFileDir, password);
             System.out.println("文件解密完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "文件解密出现错误, 解密文件{0}", srcFilePath);
@@ -75,7 +75,7 @@ public class CipherServiceImpl implements CipherService {
         for (File file : files.listFiles()) {
             Runnable task = ()->{
                 try {
-                    CipherGenerator.encryptFile(file.getAbsolutePath(), destFileDir, password);
+                    CipherUtil.encryptFile(file.getAbsolutePath(), destFileDir, password);
                 } catch (Throwable e) {
                     LogUtil.error(LOGGER, e, "文件加密出现错误, 加密文件{0}", file.getAbsolutePath());
                 }
@@ -99,7 +99,7 @@ public class CipherServiceImpl implements CipherService {
         for (File file : files.listFiles()) {
             Runnable task = ()->{
                 try {
-                    CipherGenerator.encryptFile(file.getAbsolutePath(), destFileDir, password);
+                    CipherUtil.encryptFile(file.getAbsolutePath(), destFileDir, password);
                 } catch (Throwable e) {
                     LogUtil.error(LOGGER, e, "文件解密出现错误, 解密文件{0}", file.getAbsolutePath());
                 }

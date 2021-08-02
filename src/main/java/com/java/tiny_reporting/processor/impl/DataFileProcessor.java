@@ -11,6 +11,8 @@ import com.java.tiny_reporting.service.DataFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * @author qinjiasui.qjs
  * @version DataFileProcessor: DataFileProcessor.java, v 0.1 2021年05月18日 下午5:46 qinjiasui.qjs Exp $
@@ -36,14 +38,15 @@ public class DataFileProcessor implements NodeProcessor {
         Preconditions.checkArgument(controlParam!=null,"Empty controlParam");
 
         // 2. 解析controlParam
-        String wholeFilePath = controlParam.getString("wholeFilePath");
+        String wholeFileDir = controlParam.getString("wholeFileDir");
+        String wholeFileName = controlParam.getString("wholeFileName");
         String splitFileDir = controlParam.getString("splitFileDir");
         String splitFileName = controlParam.getString("splitFileName");
         int totalCount = controlParam.getIntValue("totalCount");
         int eachFileCount = controlParam.getIntValue("eachFileCount");
 
         // 3. 生成文件并拆分
-        dataFileService.prepareWholeFile(wholeFilePath, totalCount);
-        dataFileService.splitFile(wholeFilePath, splitFileDir, splitFileName, eachFileCount);
+        dataFileService.prepareWholeFile(wholeFileDir, wholeFileName, totalCount);
+        dataFileService.splitFile(wholeFileDir + "/" + wholeFileName + ".txt", splitFileDir, splitFileName, eachFileCount);
     }
 }

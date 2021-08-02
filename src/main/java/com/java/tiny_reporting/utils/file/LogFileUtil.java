@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils.generator;
+package com.java.tiny_reporting.utils.file;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.stream.Stream;
 
-public class LogGenerator {
+public class LogFileUtil {
 
     /**
      * 获取并返回文件的md5
@@ -46,19 +46,13 @@ public class LogGenerator {
      * @param filePath 数据源文件路径
      * @return Date
      */
-    public static Date getCreateTimeDate(String filePath) {
-        try {
-            Path path = Paths.get(filePath);
-            BasicFileAttributeView basicView = Files.getFileAttributeView(path,
-                    BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
-            BasicFileAttributes attr = basicView.readAttributes();
-            Date createTimeDate = new Date(attr.creationTime().toMillis());
-            return createTimeDate;
-        } catch (Exception e) {
-            System.out.println("查询文件生成时间失败");
-            e.printStackTrace();
-            return null;
-        }
+    public static Date getCreateTimeDate(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        BasicFileAttributeView basicView = Files.getFileAttributeView(path,
+                BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
+        BasicFileAttributes attr = basicView.readAttributes();
+        Date createTimeDate = new Date(attr.creationTime().toMillis());
+        return createTimeDate;
     }
 
     /**

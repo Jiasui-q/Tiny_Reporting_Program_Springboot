@@ -2,7 +2,11 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils.generator;
+package com.java.tiny_reporting.utils.file;
+
+import com.java.tiny_reporting.utils.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,16 +14,20 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
-import java.security.cert.CertificateException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
  * @author qinjiasui.qjs
- * @version CipherGeneretor: CipherGenerator.java, v 0.1 2021年05月14日 上午10:09 qinjiasui.qjs Exp $
+ * @version CipherGeneretor: CipherUtil.java, v 0.1 2021年05月14日 上午10:09 qinjiasui.qjs Exp $
  */
 
-public class CipherGenerator {
+public class CipherUtil {
+
+    /**
+     * LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(CipherUtil.class);
 
     /**
      * 对称加密算法
@@ -56,7 +64,7 @@ public class CipherGenerator {
             KeyGenerator keyGenerator = KeyGenerator.getInstance(SYMMETRIC_KEY_ALGORITHM);
             SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
             secureRandom.setSeed(password.getBytes());
-            keyGenerator.init(128,secureRandom);
+            keyGenerator.init(128, secureRandom);
 
             // 2. 产生原始对称密钥
             SecretKey originalKey = keyGenerator.generateKey();
@@ -66,18 +74,21 @@ public class CipherGenerator {
 
             // 4. 根据字节数组生成AES密钥
             SecretKey AESKey = new SecretKeySpec(byteKey, SYMMETRIC_KEY_ALGORITHM);
-            Cipher cipher=Cipher.getInstance(SYMMETRIC_KEY_ALGORITHM);
+            Cipher cipher = Cipher.getInstance(SYMMETRIC_KEY_ALGORITHM);
             cipher.init(model, AESKey);
             return cipher;
         } catch (NoSuchAlgorithmException e) {
             System.out.println("No key generator algorithm found.");
             e.printStackTrace();
+            LogUtil.error(LOGGER, e, "No key generator algorithm found.");
         } catch (NoSuchPaddingException e) {
             System.out.println("Padding failed when creating cipher.");
             e.printStackTrace();
+            LogUtil.error(LOGGER, e, "Padding failed when creating cipher.");
         } catch (InvalidKeyException e){
-            System.out.println("Secrte key is invalid.");
+            System.out.println("Secrete key is invalid.");
             e.printStackTrace();
+            LogUtil.error(LOGGER, e, "Secrete key is invalid.");
         }
         return null;
     }
@@ -111,27 +122,22 @@ public class CipherGenerator {
      * @param destFileDir 加密后存放的dir
      * @param password 自定义密码字符串
      */
-    public static void encryptFile(String srcFilePath, String destFileDir, String password) {
-        try {
-            File srcFile = new File(srcFilePath);
-            String[] fileName = srcFile.getName().split("\\.");
-            File destFile = new File(destFileDir + "/" + fileName[0] + "_" + fileName[1] + ".bin");
-            destFile.createNewFile();
-            InputStream input = new FileInputStream(srcFile);
-            OutputStream output = new FileOutputStream(destFile);
-            CipherInputStream cipherInput = new CipherInputStream(input, getEncryptCipher(password));
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = cipherInput.read(buffer)) != -1) {
-                output.write(buffer, 0, len);
-            }
-            cipherInput.close();
-            output.close();
-            input.close();
-        } catch (Exception e) {
-            System.out.println("加密文件出现异常");
-            e.printStackTrace();
+    public static void encryptFile(String srcFilePath, String destFileDir, String password) throws IOException {
+        File srcFile = new File(srcFilePath);
+        String[] fileName = srcFile.getName().split("\\.");
+        File destFile = new File(destFileDir + "/" + fileName[0] + "_" + fileName[1] + ".bin");
+        destFile.createNewFile();
+        InputStream input = new FileInputStream(srcFile);
+        OutputStream output = new FileOutputStream(destFile);
+        CipherInputStream cipherInput = new CipherInputStream(input, getEncryptCipher(password));
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = cipherInput.read(buffer)) != -1) {
+            output.write(buffer, 0, len);
         }
+        cipherInput.close();
+        output.close();
+        input.close();
     }
 
     /**
@@ -141,27 +147,22 @@ public class CipherGenerator {
      * @param destFileDir 解密后存放的dir
      * @param password 自定义密码字符串
      */
-    public static void decryptFile(String srcFilePath, String destFileDir, String password) {
-        try {
-            File srcFile = new File(srcFilePath);
-            String[] fileName = srcFile.getName().split("\\.");
-            File destFile = new File(destFileDir + "/" + fileName[0] + ".txt");
-            destFile.createNewFile();
-            InputStream input = new FileInputStream(srcFile);
-            OutputStream output = new FileOutputStream(destFile);
-            CipherOutputStream cipherOutput = new CipherOutputStream(output, getDecryptCipher(password));
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = input.read(buffer)) != -1) {
-                cipherOutput.write(buffer, 0, len);
-            }
-            cipherOutput.close();
-            input.close();
-            output.close();
-        } catch (Exception e) {
-            System.out.println("解密文件出现异常");
-            e.printStackTrace();
+    public static void decryptFile(String srcFilePath, String destFileDir, String password) throws IOException {
+        File srcFile = new File(srcFilePath);
+        String[] fileName = srcFile.getName().split("\\.");
+        File destFile = new File(destFileDir + "/" + fileName[0] + ".txt");
+        destFile.createNewFile();
+        InputStream input = new FileInputStream(srcFile);
+        OutputStream output = new FileOutputStream(destFile);
+        CipherOutputStream cipherOutput = new CipherOutputStream(output, getDecryptCipher(password));
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = input.read(buffer)) != -1) {
+            cipherOutput.write(buffer, 0, len);
         }
+        cipherOutput.close();
+        input.close();
+        output.close();
     }
 
     /**
@@ -171,26 +172,14 @@ public class CipherGenerator {
      * @param password 密钥库密码
      * @return KeyPair
      */
-    public static KeyPair getKeyPair(String alias, String password) {
-        try {
-            String keyStoreFile = "/tmp/java-and-more.keystore";
-            KeyStore keyStore = KeyStore.getInstance(KEY_STORE_TYPE);
-            keyStore.load(Files.newInputStream(Paths.get(keyStoreFile)), password.toCharArray());
-            Key key = keyStore.getKey(alias, password.toCharArray());
-            if (key instanceof PrivateKey) {
-                PublicKey publicKey = keyStore.getCertificate(alias).getPublicKey();
-                return new KeyPair(publicKey, (PrivateKey) key);
-            }
-        } catch (UnrecoverableKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static KeyPair getKeyPair(String alias, String password) throws Exception {
+        String keyStoreFile = "/tmp/java-and-more.keystore";
+        KeyStore keyStore = KeyStore.getInstance(KEY_STORE_TYPE);
+        keyStore.load(Files.newInputStream(Paths.get(keyStoreFile)), password.toCharArray());
+        Key key = keyStore.getKey(alias, password.toCharArray());
+        if (key instanceof PrivateKey) {
+            PublicKey publicKey = keyStore.getCertificate(alias).getPublicKey();
+            return new KeyPair(publicKey, (PrivateKey) key);
         }
         return null;
     }
@@ -202,7 +191,7 @@ public class CipherGenerator {
      * @param privateKey 私钥
      * @return byte[]
      */
-    public static byte[] sign(String filePath, PrivateKey privateKey) throws Exception{
+    public static byte[] sign(String filePath, PrivateKey privateKey) throws Exception {
         InputStream input = new FileInputStream(filePath);
         BufferedInputStream bis = new BufferedInputStream((input));
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
@@ -227,7 +216,7 @@ public class CipherGenerator {
      * @param sign 数字签名
      * @return boolean
      */
-    public static boolean valid(String filePath, PublicKey publicKey, byte[] sign) throws Exception{
+    public static boolean valid(String filePath, PublicKey publicKey, byte[] sign) throws Exception {
         InputStream input = new FileInputStream(filePath);
         BufferedInputStream bis = new BufferedInputStream((input));
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKey.getEncoded());

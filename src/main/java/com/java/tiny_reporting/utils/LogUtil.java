@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils.logger;
+package com.java.tiny_reporting.utils;
 
 import java.text.MessageFormat;
 

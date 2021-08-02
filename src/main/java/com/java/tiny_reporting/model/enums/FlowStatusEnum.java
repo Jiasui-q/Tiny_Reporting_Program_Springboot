@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.enums;
+package com.java.tiny_reporting.model.enums;
 
 /**
  * @author qinjiasui.qjs

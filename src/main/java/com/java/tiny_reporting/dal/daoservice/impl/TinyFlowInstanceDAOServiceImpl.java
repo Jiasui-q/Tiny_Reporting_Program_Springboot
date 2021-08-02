@@ -7,7 +7,7 @@ package com.java.tiny_reporting.dal.daoservice.impl;
 import com.java.tiny_reporting.dal.dao.TinyFlowInstanceDAO;
 import com.java.tiny_reporting.dal.daoservice.TinyFlowInstanceDAOService;
 import com.java.tiny_reporting.dal.dataobject.TinyFlowInstanceDO;
-import com.java.tiny_reporting.enums.FlowStatusEnum;
+import com.java.tiny_reporting.model.enums.FlowStatusEnum;
 import com.java.tiny_reporting.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

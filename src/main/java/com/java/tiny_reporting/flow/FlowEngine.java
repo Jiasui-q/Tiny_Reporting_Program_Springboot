@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.java.tiny_reporting.dal.daoservice.TinyFlowConfigDAOService;
 import com.java.tiny_reporting.dal.daoservice.TinyFlowInstanceDAOService;
-import com.java.tiny_reporting.enums.FlowStatusEnum;
+import com.java.tiny_reporting.model.enums.FlowStatusEnum;
 import com.java.tiny_reporting.flow.model.Flow;
 import com.java.tiny_reporting.flow.model.FlowNode;
 import com.java.tiny_reporting.utils.JsonConfigUtil;

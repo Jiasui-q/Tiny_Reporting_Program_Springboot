@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package com.java.tiny_reporting.utils.generator;
+package com.java.tiny_reporting.utils.file;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,11 +14,12 @@ import com.java.tiny_reporting.model.Person;
 import com.java.tiny_reporting.utils.SystemPropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class FileGenerator {
+public class DataFileUtil {
 
     /**
      * 系统参数config
      */
+    @Autowired
     private static SystemPropertiesConfig systemPropertiesConfig;
 
     /**
@@ -26,18 +27,23 @@ public class FileGenerator {
      */
     @Autowired
     public void init(SystemPropertiesConfig systemPropertiesConfig) {
-        FileGenerator.systemPropertiesConfig = systemPropertiesConfig;
+        DataFileUtil.systemPropertiesConfig = systemPropertiesConfig;
     }
 
     /**
      * 生成指定个随机RandomPerson并写入filePath
      *
-     * @param destFilePath 生成文件储存路径
+     * @param destFileDir 生成文件储存Dir
+     * @param fileName 生成文件名
      * @param totalCount 总生成人数
      * @throws IOException
      */
-    public static void createWholeFile(String destFilePath, int totalCount) throws IOException {
-        File wholeFile = new File(destFilePath);
+    public static void createWholeFile(String destFileDir, String fileName, int totalCount) throws IOException {
+        File directory = new File(destFileDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File wholeFile = new File(destFileDir + "/" + fileName + ".txt");
         wholeFile.createNewFile();
         BufferedWriter out = new BufferedWriter(new FileWriter(wholeFile));
         out.write(systemPropertiesConfig.getTitle() + "\r\n");
@@ -61,6 +67,10 @@ public class FileGenerator {
      * @throws IOException
      */
     public static void splitFile(String srcFilePath, String destFileDir, String fileName, int eachFileCount) throws IOException {
+        File directory = new File(destFileDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         FileReader read = new FileReader(srcFilePath);
         BufferedReader br = new BufferedReader(read);
         br.readLine();
@@ -92,6 +102,10 @@ public class FileGenerator {
      * @throws IOException
      */
     public static void splitFileOnAge(String srcFilePath, String destFileDir, String fileName, int groupCount) throws IOException {
+        File directory = new File(destFileDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         List<BufferedWriter> writers = new ArrayList<>(groupCount);
         int[] seqCount = new int[groupCount];
         Arrays.fill(seqCount, 0);

@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Controller
 public class TinyFlowInstanceController {
+
     @Autowired
     FlowEngine flowEngine;
 
@@ -104,6 +105,5 @@ public class TinyFlowInstanceController {
     public String deleteFlowInstanceById() {
         return "flowInstance/successDelete";
     }
-
 
 }

@@ -5,8 +5,9 @@
 package com.java.tiny_reporting.service.impl;
 
 import com.java.tiny_reporting.service.DataFileService;
-import com.java.tiny_reporting.utils.generator.FileGenerator;
-import com.java.tiny_reporting.utils.logger.LogUtil;
+import com.java.tiny_reporting.utils.file.CipherUtil;
+import com.java.tiny_reporting.utils.file.DataFileUtil;
+import com.java.tiny_reporting.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,14 @@ public class DataFileServiceImpl implements DataFileService {
 
     /**
      * 生成指定个随机RandomPerson并写入文件
-     *
-     * @param destFilePath 生成文件储存路径
+     *  @param destFileDir 生成文件储存Dir
+     * @param fileName 生成文件名
      * @param totalCount 数据量总条数
      */
     @Override
-    public void prepareWholeFile(String destFilePath, int totalCount) {
+    public void prepareWholeFile(String destFileDir, String fileName, int totalCount) {
         try {
-            FileGenerator.createWholeFile(destFilePath, totalCount);
+            DataFileUtil.createWholeFile(destFileDir, fileName, totalCount);
             System.out.println("文件生成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "准备文件出现错误, 总条数{0}", totalCount);
@@ -46,7 +47,7 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public void splitFile(String srcFilePath, String destFileDir, String fileName, int eachFileCount) {
         try {
-            FileGenerator.splitFile(srcFilePath, destFileDir, fileName, eachFileCount);
+            DataFileUtil.splitFile(srcFilePath, destFileDir, fileName, eachFileCount);
             System.out.println("文件拆分完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "拆分文件出现错误, 每个文件条数{0}", eachFileCount);
@@ -64,7 +65,7 @@ public class DataFileServiceImpl implements DataFileService {
     @Override
     public void splitFileOnAge(String srcFilePath, String destFileDir, String fileName, int groupCount) {
         try {
-            FileGenerator.splitFileOnAge(srcFilePath, destFileDir, fileName, groupCount);
+            DataFileUtil.splitFileOnAge(srcFilePath, destFileDir, fileName, groupCount);
             System.out.println("文件按年龄拆分完成\r\n");
         } catch (Throwable e) {
             LogUtil.error(LOGGER, e, "根据年龄拆分文件出现错误, 组数{0}", groupCount);
